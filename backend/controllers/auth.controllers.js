@@ -1,7 +1,7 @@
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { redis } from "./lib/redis.js";
+import { redis } from "../lib/redis.js";
 const generateTokens = (userId) => {
   const accessToken = jwt.sign({ userId }, process.env.JWT_SECRET, {
     expiresIn: "15m",
@@ -116,6 +116,17 @@ export const refreshToken = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId);
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+//MIDDLEWARE FUNCTION
 export const protectedRoute = async (req, res, next) => {
   try {
     const accessToken = req.cookies.accessToken;
@@ -125,14 +136,6 @@ export const protectedRoute = async (req, res, next) => {
     const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
     req.user = { userId: decoded.userId };
     next();
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-export const getProfile = async (req, res) => {
-  try {
-    const user = await User.findById(req.user.userId);
-    res.status(200).json({ user });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
