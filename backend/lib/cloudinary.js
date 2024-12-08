@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 cloudinary.config({
-  cloud_name: "dvynmrss4",
-  api_key: "795289841653837",
-  api_secret: "lGiLFPvvO2563K7Za4vg0iufU64",
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
 });
 export default cloudinary;
