@@ -34,5 +34,7 @@ a:hover {
   transform: scale(1.05);
 }
 
+.nav-icons {
+  font-size: 10px;
+}
 /*  ANIMATIONS*/
-

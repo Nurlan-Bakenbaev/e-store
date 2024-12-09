@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Heart, ShoppingCart, LogOut, LogIn, Gauge } from "lucide-react";
+
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import { Button } from "@mui/material";
@@ -23,11 +23,11 @@ const Navbar = () => {
         </div>
         <div className="flex items-center space-x-6">
           <Link href="/saved" className="flex items-center">
-            <FavoriteIcon sx={{ fontSize: 20 }} className="mr-1" />
+            <Heart className=" mr-1" />
             Saved
           </Link>
           <Link href="/cart" className="flex items-center cart-link">
-            <ShoppingCartIcon sx={{ fontSize: 20 }} className=" mr-1" />
+            <ShoppingCart className=" mr-1" />
             Cart
           </Link>
           {user ? (
@@ -36,7 +36,7 @@ const Navbar = () => {
                 color="error"
                 variant="contained"
                 className="flex items-center">
-                <LogoutIcon sx={{ fontSize: 20 }} className="mr-1" />
+                <LogOut className="mr-1" />
                 Logout
               </Button>
               {user.role === "admin" && (
@@ -45,13 +45,13 @@ const Navbar = () => {
                   className=" no-hover-link border border-success
                    hover:bg-success flex items-center
                     px-4 py-2 rounded-md ">
-                  Dashboard
+                  <Gauge /> <span className="mx-1">Dashboard</span>
                 </Link>
               )}
             </div>
           ) : (
             <Link href="/login" className=" flex items-center">
-              <LoginIcon sx={{ fontSize: 20 }} className="mr-1" />
+              <LogIn className="mr-1" />
               Log In
             </Link>
           )}
