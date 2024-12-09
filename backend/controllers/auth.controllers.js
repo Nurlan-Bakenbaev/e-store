@@ -116,7 +116,6 @@ export const refreshToken = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 export const getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.userId);
@@ -125,7 +124,6 @@ export const getProfile = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 //MIDDLEWARE FUNCTION
 export const protectedRoute = async (req, res, next) => {
   try {

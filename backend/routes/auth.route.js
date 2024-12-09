@@ -14,5 +14,4 @@ authRoutes.post("/logout", logout);
 
 // REFRESH TOKEN
 authRoutes.post("/refresh-token", refreshToken);
-
 authRoutes.get("/profile", protectedRoute, getProfile);
