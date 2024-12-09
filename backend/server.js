@@ -7,6 +7,7 @@ import { productRoutes } from "./routes/product.route.js";
 import { cartRoutes } from "./routes/cart.routes.js";
 import { couponsRoutes } from "./routes/coupons.router.js";
 import { paymentRoutes } from "./routes/payment.routes.js";
+import { analiticsRoutes } from "./routes/analitics.routes.js";
 dotenv.config();
 const app = express();
 app.use(cookieParser());
@@ -19,6 +20,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/coupons", couponsRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/analitics", analiticsRoutes);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
