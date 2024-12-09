@@ -5,14 +5,20 @@ import { authRoutes } from "./routes/auth.route.js";
 import { connectDB } from "./db.js";
 import { productRoutes } from "./routes/product.route.js";
 import { cartRoutes } from "./routes/cart.routes.js";
+import { couponsRoutes } from "./routes/coupons.router.js";
+import { paymentRoutes } from "./routes/payment.routes.js";
 dotenv.config();
 const app = express();
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+//ROUTES
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/coupons", couponsRoutes);
+app.use("/api/payments", paymentRoutes);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
