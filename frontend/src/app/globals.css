@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-primary: #1d4ed8;
+  --color-secondary: #64748b;
+  --color-accent: #fb7324;
+  --color-neutral: #f3f4f6;
+  --color-primary-hover: #1e40af;
+  --color-secondary-hover: #475b63;
+  --color-error: #dc2626;
+  --color-success: #129542;
+  --background: #0c0f31;
+  --foreground: #09367a;
+}
+
+a {
+  transition: all 0.2s ease-in-out;
+}
+.no-hover-link:hover {
+  text-decoration: none;
+  transform: none;
+  cursor: pointer;
+  color: white;
+}
+a:hover {
+  color: var(--color-accent);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 1em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--color-accent);
+  transform: scale(1.05);
+}
+
+/*  ANIMATIONS*/
+
