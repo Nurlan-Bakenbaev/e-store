@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { Heart, ShoppingCart, LogOut, LogIn, Gauge } from "lucide-react";
+import { Heart, ShoppingCart, LogOut, LogIn, Gauge, Store } from "lucide-react";
 
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
@@ -14,12 +14,12 @@ const Navbar = () => {
   return (
     <nav className="p-4 h-[80px] drop-shadow-2xl border-b border-primary">
       <div className=" flex justify-between items-center w-full md:w-[80%] mx-auto ">
-        <div className=" flex items-center text-2xl italic">
+        <div className=" flex items-center text-2xl">
           <Link href="/" className="hidden md:flex items-center no-hover-link">
+            <Image src="/logotip.png" alt="logotip" width={30} height={30} />
             <span className="text-4xl font-bold text-accent">Shop</span>
-            <span className="text-4xl font-bold text-success">per</span>
+            <span className="text-4xl font-bold text-success mr-1">per</span>
           </Link>
-          <Image src="/logo2.gif" alt="logo" width={60} height={60} />
         </div>
         <div className="flex items-center space-x-6">
           <Link href="/saved" className="flex items-center">
