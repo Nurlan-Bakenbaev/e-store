@@ -1,10 +1,9 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AtSign, Lock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { MoveRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/stores/useUserStore";
 const Login = () => {
@@ -13,6 +12,8 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = useState("");
+  const router = useRouter();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -21,9 +22,7 @@ const Login = () => {
     }));
     setError("");
   };
-  const router = useRouter();
-  const { login, user, loading } = useUserStore();
-  console.log(user);
+  const { login, loading } = useUserStore();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
@@ -31,12 +30,8 @@ const Login = () => {
       return;
     }
     login(formData);
+    router.push("/");
   };
-  useEffect(() => {
-    if (user) {
-      router.push("/");
-    }
-  }, [user, router]);
 
   // animation
   const fadeInUp = {

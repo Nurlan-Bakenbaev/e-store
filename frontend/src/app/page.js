@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 
 const Home = () => {
   const { checkAuth, user } = useUserStore();
-
+  console.log(user);
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);

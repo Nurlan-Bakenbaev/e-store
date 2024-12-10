@@ -13,7 +13,7 @@ export const useUserStore = create((set, get) => ({
       const res = await axios.post("/auth/signup", { name, email, password });
       toast.success(res.data || "Signup successful");
       set({
-        user: res.data || null,
+        user: res.data.user,
         loading: false,
       });
     } catch (error) {
@@ -30,10 +30,10 @@ export const useUserStore = create((set, get) => ({
     set({ loading: true });
     try {
       const res = await axios.post("/auth/login", { email, password });
-      toast.success(res.data || "Login successful");
-      console.log(res.data);
+      toast.success("Login successful");
+      console.log(res.data.user);
       set({
-        user: res.data || null,
+        user: res.data.user || null,
         loading: false,
       });
     } catch (error) {
