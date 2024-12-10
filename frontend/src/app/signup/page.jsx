@@ -1,17 +1,20 @@
 "use client";
-import React, { useState } from "react";
-import { delay, motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { User, AtSign, Lock, MoveRight } from "lucide-react";
+import { User, AtSign, Lock } from "lucide-react";
+import { useUserStore } from "@/stores/useUserStore";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  console.log(formData);
   const [passwordError, setPasswordError] = useState("");
 
   const handleChange = (e) => {
@@ -22,14 +25,22 @@ const SignUp = () => {
     }));
     setPasswordError("");
   };
-
+  const { signup, user } = useUserStore();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setPasswordError("Passwords do not match");
       return;
     }
+    signup(formData);
   };
+  const router = useRouter();
+  useEffect(() => {
+    if (user) {
+      router.push("/login");
+    }
+  }, [user, router]);
+  //ANIMATION
   const fadeInSide = {
     hidden: { opacity: 0, x: -40 },
     visible: { opacity: 1, x: 0 },
@@ -44,15 +55,16 @@ const SignUp = () => {
         variants={fadeInSide}
         initial="hidden"
         animate="visible"
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.8 }}
         className="hidden md:block flex-1 relative">
-        <div className="absolute inset-0 bg-black opacity-50 z-10" />
+        <div className="absolute inset-0 bg-purple-900 opacity-40 z-10" />
         <Image
-          src="/signup-baner.jpg"
+          src="/nobg.png"
           alt="signup-banner"
           fill
           objectFit="cover"
-          className="inset-10"
+          objectPosition=" center"
+          className=" "
         />
       </motion.div>
       <form
@@ -61,36 +73,34 @@ const SignUp = () => {
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}>
+          transition={{ duration: 0.8, delay: 0.2 }}>
           <h2 className="text-3xl font-bold text-center">Sign Up</h2>
         </motion.div>
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.8, delay: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.5, delay: 0.6, ease: "easeInOut" }}
           className="flex items-center  w-full max-w-md  p-2 rounded-md">
           <User />
           <input
             type="text"
             autoFocus
-            id="username"
-            name="username"
-            value={formData.username}
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             placeholder="User name"
             required
-            pattern="^[a-zA-Z0-9]{3,25}$"
             minLength="3"
             maxLength="25"
-            title="Username must be between 3 and 25 characters, and can only contain letters and numbers"
           />
         </motion.div>
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.8, delay: 1, ease: "easeInOut" }}
+          transition={{ duration: 0.5, delay: 0.8, ease: "easeInOut" }}
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <AtSign />
           <input
@@ -104,7 +114,6 @@ const SignUp = () => {
             required
             minLength="6"
             maxLength="100"
-            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
             title="Please enter a valid email address"
           />
         </motion.div>
@@ -112,7 +121,7 @@ const SignUp = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.8, delay: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 0.5, delay: 1.2, ease: "easeInOut" }}
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <Lock />
           <input
@@ -124,7 +133,6 @@ const SignUp = () => {
             minLength="8"
             maxLength="30"
             name="password"
-            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
             title="Password must be at least 8 characters, including a number"
             required
           />
@@ -133,7 +141,7 @@ const SignUp = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.8, delay: 2, ease: "easeInOut" }}
+          transition={{ duration: 0.5, delay: 1.6, ease: "easeInOut" }}
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <Lock />
           <input
@@ -164,7 +172,7 @@ const SignUp = () => {
           <span className="text-sm text-center py-4">
             Already have an account?
             <Link href="/login" className="text-blue-500 font-bold ml-2">
-              Login 
+              Login
             </Link>
           </span>
         </motion.div>

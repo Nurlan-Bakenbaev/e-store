@@ -36,6 +36,7 @@ const setCookies = (res, { accessToken, refreshToken }) => {
   });
 };
 export const signup = async (req, res) => {
+  console.log(req.body);
   try {
     const { name, email, password } = req.body;
     const existingUser = await User.findOne({ email });
@@ -51,9 +52,11 @@ export const signup = async (req, res) => {
       .status(201)
       .json({ message: "User created successfully", user: newUser });
   } catch (error) {
+    console.log("error is signup", error);
     res.status(500).json({ message: error.message });
   }
 };
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
