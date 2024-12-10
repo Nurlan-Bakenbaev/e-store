@@ -6,9 +6,10 @@ import { delay, motion } from "framer-motion";
 import { Heart, ShoppingCart, LogOut, LogIn, Gauge } from "lucide-react";
 import { Button } from "@mui/material";
 import Image from "next/image";
+import { useUserStore } from "@/stores/useUserStore";
 const Navbar = () => {
-  const user = false;
   const path = usePathname();
+  const { user } = useUserStore();
   if (path === "/login" || path === "/signup") return null;
   return (
     <nav className="text-neutral nav-bar p-4 h-[80px] drop-shadow-2xl border-b border-primary">
@@ -18,11 +19,7 @@ const Navbar = () => {
         transition={{ duration: 0.4, delay: 0.2, ease: "easeInOut" }}
         className=" flex justify-between items-center w-full md:w-[80%] mx-auto ">
         <div className=" flex items-center text-2xl">
-          <motion.div
-            whileHover={{ y: -5 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}>
-            <Image src="/logotip.png" alt="logotip" width={55} height={55} />
-          </motion.div>
+          <Image src="/logotip.png" alt="logotip" width={55} height={55} />
           <Link href="/" className="hidden md:flex items-center no-hover-link">
             <span className="text-4xl font-bold text-accent">Shop</span>
             <span className="text-4xl font-bold text-success mr-1">per</span>

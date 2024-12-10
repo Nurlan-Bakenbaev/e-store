@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
   --color-primary: #1d4ed8;
   --color-secondary: #64748b;
@@ -20,11 +19,27 @@ input {
   border: none;
   background-color: transparent;
   border-bottom: 1px solid var(--color-neutral);
-  padding: 0.5rem 0.5rem;
-  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: clamp(0.875rem, 2.5vw, 1.125rem);
   transition: all 0.2s ease-in-out;
-  padding: 12px;
-  margin-left: 8px;
+  margin-left: 0.5rem;
+
+  border-bottom-width: clamp(1px, 0.3vw, 2px);
+}
+input:focus {
+  border-bottom-color: var(--color-primary);
+  transform: scale(1.02);
+}
+input::placeholder {
+  color: gray;
+  font-size: 0.8em;
+}
+@media (max-width: 480px) {
+  input {
+    font-size: 0.7rem;
+    padding: 0.5rem;
+    margin-left: 0;
+  }
 }
 a {
   transition: all 0.2s ease-in-out;

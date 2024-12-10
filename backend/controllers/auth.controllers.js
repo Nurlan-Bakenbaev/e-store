@@ -26,12 +26,14 @@ const storeRefreshToken = async (userId, refreshToken) => {
 const setCookies = (res, { accessToken, refreshToken }) => {
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
-    sameSite: "none",
+    secure: false,
+    sameSite: "Lax",
     maxAge: 15 * 60 * 1000, // 15 minutes
   });
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    sameSite: "none",
+    secure: false,
+    sameSite: "Lax",
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 };
@@ -112,6 +114,8 @@ export const refreshToken = async (req, res) => {
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       maxAge: 15 * 60 * 1000,
+      secure: false,
+      sameSite: "Lax",
     });
     return res.json({ accessToken });
   } catch (error) {

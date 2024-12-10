@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 
-
 const SignUp = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -57,7 +56,7 @@ const SignUp = () => {
         variants={fadeInSide}
         initial="hidden"
         animate="visible"
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.7 }}
         className="hidden md:block flex-1 relative">
         <div className="absolute inset-0 bg-purple-900 opacity-40 z-10" />
         <Image
@@ -75,14 +74,16 @@ const SignUp = () => {
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}>
-          <h2 className="text-3xl font-bold text-center">Sign Up</h2>
+          transition={{ duration: 0.7, delay: 0.2 }}>
+          <h2 className=" text-2xl md:text-4xl font-bold text-center">
+            Sign Up
+          </h2>
         </motion.div>
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.5, delay: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.7, delay: 0.6, ease: "easeInOut" }}
           className="flex items-center  w-full max-w-md  p-2 rounded-md">
           <User />
           <input
@@ -102,7 +103,7 @@ const SignUp = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.5, delay: 0.8, ease: "easeInOut" }}
+          transition={{ duration: 0.6, delay: 0.8, ease: "easeInOut" }}
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <AtSign />
           <input
@@ -123,7 +124,7 @@ const SignUp = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.5, delay: 1.2, ease: "easeInOut" }}
+          transition={{ duration: 0.6, delay: 1.2, ease: "easeInOut" }}
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <Lock />
           <input
@@ -143,7 +144,7 @@ const SignUp = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.5, delay: 1.6, ease: "easeInOut" }}
+          transition={{ duration: 0.6, delay: 1.6, ease: "easeInOut" }}
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <Lock />
           <input

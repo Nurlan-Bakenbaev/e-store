@@ -23,6 +23,7 @@ const Login = () => {
   };
   const router = useRouter();
   const { login, user, loading } = useUserStore();
+  console.log(user);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
@@ -121,7 +122,7 @@ const Login = () => {
       <motion.div
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+        transition={{ duration: 1, ease: "easeOut" }}
         className="hidden md:flex flex-1 relative">
         <div className="absolute inset-0 bg-slate-700 opacity-50 z-10" />
         <Image

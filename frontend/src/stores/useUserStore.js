@@ -5,34 +5,51 @@ import { toast } from "react-toastify";
 export const useUserStore = create((set, get) => ({
   user: null,
   loading: false,
-  checkingAuth: true,
+  checkingAuth: false,
 
   signup: async ({ name, email, password }) => {
     set({ loading: true });
     try {
       const res = await axios.post("/auth/signup", { name, email, password });
-      toast.success(res.data.message);
-      set({ user: res?.data.user });
-      set({ loading: false });
+      toast.success(res.data || "Signup successful");
+      set({
+        user: res.data || null,
+        loading: false,
+      });
     } catch (error) {
       set({ loading: false });
-      if (error.status === 400) {
+      if (error.response?.status === 400) {
         toast.error("User already exists");
+      } else {
+        toast.error(error.response?.data?.message || "Signup failed");
       }
     }
   },
+
   login: async ({ email, password }) => {
     set({ loading: true });
     try {
       const res = await axios.post("/auth/login", { email, password });
-      toast.success(res.data.message);
-
-      set({ user: res?.data.user });
-      set({ loading: false });
+      toast.success(res.data || "Login successful");
+      console.log(res.data);
+      set({
+        user: res.data || null,
+        loading: false,
+      });
     } catch (error) {
       set({ loading: false });
-
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Login failed");
+    }
+  },
+  checkAuth: async () => {
+    set({ checkingAuth: true });
+    try {
+      const res = await axios.get("/auth/profile");
+      set({ loading: false });
+      set({ user: res.data, checkingAuth: false });
+    } catch (error) {
+      set({ loading: false });
+      set({ user: null, checkingAuth: false });
     }
   },
 }));

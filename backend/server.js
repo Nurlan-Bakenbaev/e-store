@@ -15,9 +15,9 @@ const app = express();
 app.use(cookieParser());
 const corsOptions = {
   origin: "http://localhost:3000",
+  credentials: true,
   methods: ["GET", "POST", "DELETE", "UPDATE"],
   allowedHeaders: ["Content-Type", "Authorization", "withCredentials"],
-  credentials: true,
 };
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
