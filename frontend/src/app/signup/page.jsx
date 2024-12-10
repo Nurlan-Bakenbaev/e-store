@@ -1,11 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { User, AtSign, Lock } from "lucide-react";
 import { useUserStore } from "@/stores/useUserStore";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +31,7 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      setPasswordError("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
     signup(formData);
@@ -37,7 +39,7 @@ const SignUp = () => {
   const router = useRouter();
   useEffect(() => {
     if (user) {
-      router.push("/login");
+      router.push("/");
     }
   }, [user, router]);
   //ANIMATION
@@ -69,7 +71,7 @@ const SignUp = () => {
       </motion.div>
       <form
         onSubmit={handleSubmit}
-        className="flex-1 flex flex-col justify-center items-center p-4 space-y-2">
+        className={`flex-1 flex flex-col justify-center items-center p-4 space-y-2 `}>
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -166,7 +168,7 @@ const SignUp = () => {
           transition={{ duration: 0.8, delay: 2.2, ease: "easeInOut" }}>
           <button
             type="submit"
-            className="w-full max-w-md py-2 bg-blue-600 rounded-md hover:bg-blue-800 transition">
+            className="w-full  p-4 my-5  max-w-md py-2 bg-blue-600 rounded-md hover:bg-blue-800 transition">
             Sign Up
           </button>
           <span className="text-sm text-center py-4">

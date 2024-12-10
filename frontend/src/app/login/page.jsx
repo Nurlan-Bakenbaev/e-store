@@ -1,18 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { AtSign, Lock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { MoveRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useUserStore } from "@/stores/useUserStore";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
   const [error, setError] = useState("");
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -21,16 +21,23 @@ const Login = () => {
     }));
     setError("");
   };
-
+  const router = useRouter();
+  const { login, user, loading } = useUserStore();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
       setError("Email and Password are required");
       return;
     }
-
-    console.log("Login data submitted:", formData);
+    login(formData);
   };
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user, router]);
+
+  // animation
   const fadeInUp = {
     hidden: { opacity: 0, x: -40 },
     visible: { opacity: 1, x: 0 },
@@ -100,12 +107,12 @@ const Login = () => {
           transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}>
           <button
             type="submit"
-            className="w-full max-w-md py-2 bg-blue-600 rounded-md hover:bg-blue-800 transition">
-            Login
+            className="w-full p-4 my-5 max-w-md py-2 bg-blue-600 rounded-md hover:bg-blue-800 transition">
+            {loading ? "Loading..." : "Login"}
           </button>
           <span className="text-sm text-center py-4">
             Don't have an account?
-            <Link href="/signup" className="text-blue-500 font-bold ml-2">
+            <Link href="/signup" className=" text-blue-500 font-bold ml-2">
               Sign Up
             </Link>
           </span>
