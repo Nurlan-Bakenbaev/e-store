@@ -9,7 +9,7 @@ import Image from "next/image";
 import { useUserStore } from "@/stores/useUserStore";
 const Navbar = () => {
   const path = usePathname();
-  const { user } = useUserStore();
+  const { user, logout } = useUserStore();
   if (path === "/login" || path === "/signup") return null;
   return (
     <nav className="text-neutral nav-bar p-4 h-[80px] drop-shadow-2xl border-b border-primary">
@@ -52,10 +52,9 @@ const Navbar = () => {
                   <Gauge /> <span className="mx-1">Dashboard</span>
                 </Link>
               )}
-              <Button color="error" variant="outlined">
-                <span className="flex  duration-200 ease-out hover:scale-95">
-                  <LogOut className="mr-1" />
-                  Logout
+              <Button onClick={logout} color="error" variant="outlined">
+                <span className="flex  duration-200  ease-out hover:scale-90">
+                  <LogOut />
                 </span>
               </Button>
             </div>

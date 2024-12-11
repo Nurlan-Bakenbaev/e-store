@@ -25,7 +25,6 @@ export const useUserStore = create((set, get) => ({
       }
     }
   },
-
   login: async ({ email, password }) => {
     set({ loading: true });
     try {
@@ -33,7 +32,7 @@ export const useUserStore = create((set, get) => ({
       toast.success("Login successful");
       console.log(res.data.user);
       set({
-        user: res.data.user || null,
+        user: res.data.user,
         loading: false,
       });
     } catch (error) {
@@ -45,11 +44,23 @@ export const useUserStore = create((set, get) => ({
     set({ checkingAuth: true });
     try {
       const res = await axios.get("/auth/profile");
-      set({ user: res.data, checkingAuth: false });
+      set({ user: res.data.user, checkingAuth: false });
       set({ loading: false });
     } catch (error) {
       set({ user: null, checkingAuth: false });
       set({ loading: false });
     }
   },
+  logout: async () => {
+    set({ loading: true });
+    try {
+      const res = await axios.post("/auth/logout");
+      toast.success("Logout successful");
+      set({ user: null, loading: false });
+    } catch (error) {
+      set({ loading: false });
+      toast.error(error.response?.data?.message || "Logout failed");
+    }
+  },
 }));
+//TODO : Add update TOKENS

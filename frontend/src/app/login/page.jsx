@@ -30,8 +30,12 @@ const Login = () => {
       return;
     }
     login(formData);
-    router.push("/");
   };
+
+  const { user } = useUserStore();
+  useEffect(() => {
+    if (user) router.push("/");
+  }, [user]);
 
   // animation
   const fadeInUp = {
