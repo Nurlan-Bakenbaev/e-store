@@ -6,6 +6,7 @@
   --color-secondary: #64748b;
   --color-accent: #fb7324;
   --color-neutral: #f3f4f6;
+  --color-neutral-gray: #757575;
   --color-primary-hover: #294ab6;
   --color-secondary-hover: #475b63;
   --color-error: #dc2626;
@@ -18,13 +19,12 @@ input {
   outline: none;
   border: none;
   background-color: transparent;
-  border-bottom: 1px solid var(--color-neutral);
-  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-neutral-gray);
+  padding: 0.5rem 0.5rem;
   font-size: clamp(0.875rem, 2.5vw, 1.125rem);
   transition: all 0.2s ease-in-out;
   margin-left: 0.5rem;
-
-  border-bottom-width: clamp(1px, 0.3vw, 2px);
+  font-size: 1rem;
 }
 input:focus {
   border-bottom-color: var(--color-primary);

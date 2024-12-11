@@ -1,14 +1,39 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useUserStore } from "@/stores/useUserStore";
-import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import SignUpModel from "./components/SignUpModel";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const Home = () => {
   const { checkAuth, user } = useUserStore();
-  console.log(user);
+  const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-  return <div>Home</div>;
+    if (!user) {
+      checkAuth();
+    }
+    const timeout = setTimeout(() => {
+      if (!user) {
+        setIsOpen(true);
+      }
+    }, 5000);
+    return () => clearTimeout(timeout);
+  }, [checkAuth, user]);
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+  return (
+    <div>
+      <h1>Home Page</h1>
+      {/* Auth Modul  */}
+      <SignUpModel
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        closeModal={closeModal}
+      />
+    </div>
+  );
 };
 
 export default Home;

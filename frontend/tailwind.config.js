@@ -41,6 +41,7 @@ module.exports = {
       animation: {
         fadeIn: "fadeIn 0.5s ease-in-out",
         bounce: "bounce 1s infinite",
+        "spin-slow": "spin 2s linear infinite",
       },
       keyframes: {
         fadeIn: {
