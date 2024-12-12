@@ -74,10 +74,11 @@ export const getRecomendations = async (req, res) => {
 
 // get by category
 export const getProductsByCategory = async (req, res) => {
-  const { cat } = req.params;
   try {
-    const category = await Product.find({ category: cat });
-    res.status(200).json({ category });
+  const { category } = req.params;
+
+    const products = await Product.find({ category: category });
+    res.status(200).json({ products });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

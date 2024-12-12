@@ -1,10 +1,10 @@
 import Container from "./components/Container";
 import Navbar from "./components/Navbar";
 import "./globals.css";
-import { Open_Sans } from "next/font/google";
-const open_Sans = Open_Sans({
+import { Poppins } from "next/font/google";
+const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["300", "500"],
+  weight: ["200", "400"],
 });
 export const metadata = {
   title: "E-Commerce Platform",
@@ -14,11 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={open_Sans.className}>
+      <body className={poppins.className}>
         <Navbar />
-        <Container>
-          <div> {children}</div>
-        </Container>
+        <Container>{children}</Container>
       </body>
     </html>
   );

@@ -52,5 +52,4 @@ const SignUpModel = ({ isOpen, setIsOpen, closeModal }) => {
     </Modal>
   );
 };
-
 export default SignUpModel;

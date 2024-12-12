@@ -2,7 +2,6 @@
 import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
-import { delay, motion } from "framer-motion";
 import { Heart, ShoppingCart, LogOut, LogIn, Gauge } from "lucide-react";
 import { Button } from "@mui/material";
 import Image from "next/image";
@@ -13,11 +12,7 @@ const Navbar = () => {
   if (path === "/login" || path === "/signup") return null;
   return (
     <nav className="text-neutral nav-bar p-4 h-[80px] drop-shadow-2xl border-b border-primary">
-      <motion.div
-        initial={{ opacity: 0, y: -100 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.2, ease: "easeInOut" }}
-        className=" flex justify-between items-center w-full md:w-[80%] mx-auto ">
+      <div className=" flex justify-between items-center w-full md:w-[80%] mx-auto ">
         <div className=" flex items-center text-2xl">
           <Image src="/logotip.png" alt="logotip" width={55} height={55} />
           <Link href="/" className="hidden md:flex items-center no-hover-link">
@@ -30,26 +25,30 @@ const Navbar = () => {
             <Heart className=" mr-1" />
             Saved
           </Link>
-          <div className="relative">
-            <Link href="/cart" className=" flex items-center cart-link">
-              <ShoppingCart className=" mr-1" />
-              Cart
-              <span
-                className="w-[22px] h-[22px] rounded-full bg-success opacity-[90%]
+          {user?.role === "customer" && (
+            <div className="relative">
+              <Link href="/cart" className=" flex items-center cart-link">
+                <ShoppingCart className=" mr-1" />
+                Cart
+                <span
+                  className="w-[22px] h-[22px] rounded-full bg-success opacity-[90%]
              absolute bottom-[-10px] right-[-10px]  text-center ">
-                {1}
-              </span>
-            </Link>
-          </div>
+                  {1}
+                </span>
+              </Link>
+            </div>
+          )}
           {user ? (
             <div className="flex space-x-2">
               {user.role === "admin" && (
                 <Link
                   href="/admin"
-                  className=" no-hover-link border border-success
+                  className={`no-hover-link border border-success
                    hover:bg-success flex items-center
-                    px-4 py-2 rounded-md ">
-                  <Gauge /> <span className="mx-1">Dashboard</span>
+                    px-4 py-2 rounded-md  ${
+                      path === "/admin" ? "bg-success" : ""
+                    }`}>
+                  <Gauge /> <span className="mx-1">Admin</span>
                 </Link>
               )}
               <Button onClick={logout} color="error" variant="outlined">
@@ -65,7 +64,7 @@ const Navbar = () => {
             </Link>
           )}
         </div>
-      </motion.div>
+      </div>
     </nav>
   );
 };

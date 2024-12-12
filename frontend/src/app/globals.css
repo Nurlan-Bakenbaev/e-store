@@ -1,10 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
   --color-primary: #1d4ed8;
   --color-secondary: #64748b;
-  --color-accent: #fb7324;
+  --color-accent: #f0be29;
+  --color-active: #9c27b0;
   --color-neutral: #f3f4f6;
   --color-neutral-gray: #757575;
   --color-primary-hover: #294ab6;
@@ -13,6 +15,9 @@
   --color-success: #129542;
   --background: #0a0c28;
   --foreground: #0e336b;
+}
+body {
+  color: white;
 }
 input {
   width: 100%;
@@ -65,5 +70,15 @@ a:hover {
 }
 .nav-bar {
   background-color: #0c336d;
+}
+label {
+  font-size: clamp(0.8rem, 1vw, 1.125rem);
+  font-weight: 300;
+}
+label,
+.d-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 /*  ANIMATIONS*/

@@ -12,19 +12,21 @@ const Container = ({ children }) => {
   return (
     <div
       className={`min-h-screen ${
-        isAuthPage ? "pt-0" : "pt-20"
+        isAuthPage ? "pt-0" : "pt-10"
       } bg-gradient-to-t from-background to-foreground
-        text-white relative overflow-hidden`}>
+        text-white relative overflow-hidden `}>
+
       {checkingAuth || (loading && <LoadingSpinner />)}
+
+      {/* react tostify component */}
       <ToastContainer
         newestOnTop={true}
         position="top-left"
         autoClose={3000}
         pauseOnFocusLoss={false}
         pauseOnHover={false}
-        theme="colored"
-      />
-      {children}
+        theme="colored"/>
+    <div className="mb-20">  {children}</div>
     </div>
   );
 };

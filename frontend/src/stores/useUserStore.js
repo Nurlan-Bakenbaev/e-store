@@ -29,8 +29,8 @@ export const useUserStore = create((set, get) => ({
     set({ loading: true });
     try {
       const res = await axios.post("/auth/login", { email, password });
-      toast.success("Login successful");
-      console.log(res.data.user);
+
+      toast.success(`You are logged in as ${res.data.user.role}`);
       set({
         user: res.data.user,
         loading: false,

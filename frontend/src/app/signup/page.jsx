@@ -56,7 +56,7 @@ const SignUp = () => {
         variants={fadeInSide}
         initial="hidden"
         animate="visible"
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.8 }}
         className="hidden md:block flex-1 relative">
         <div className="absolute inset-0 bg-purple-900 opacity-40 z-10" />
         <Image
@@ -74,7 +74,7 @@ const SignUp = () => {
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}>
+          transition={{ duration: 0.5, delay: 0.2 }}>
           <h2 className=" text-2xl md:text-4xl font-bold text-center">
             Sign Up
           </h2>
@@ -83,7 +83,7 @@ const SignUp = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.7, delay: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.5, delay: 0.4, ease: "easeInOut" }}
           className="flex items-center  w-full max-w-md  p-2 rounded-md">
           <User />
           <input
@@ -103,7 +103,7 @@ const SignUp = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.6, delay: 0.8, ease: "easeInOut" }}
+          transition={{ duration: 0.5, delay: 0.6, ease: "easeInOut" }}
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <AtSign />
           <input
@@ -124,7 +124,7 @@ const SignUp = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.6, delay: 1.2, ease: "easeInOut" }}
+          transition={{ duration: 0.5, delay: 1, ease: "easeInOut" }}
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <Lock />
           <input
@@ -144,7 +144,7 @@ const SignUp = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.6, delay: 1.6, ease: "easeInOut" }}
+          transition={{ duration: 0.5, delay: 1.4, ease: "easeInOut" }}
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <Lock />
           <input
@@ -166,7 +166,7 @@ const SignUp = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.8, delay: 2.2, ease: "easeInOut" }}>
+          transition={{ duration: 0.5, delay: 1.6, ease: "easeInOut" }}>
           <button
             type="submit"
             className="w-full  p-4 my-5  max-w-md py-2 bg-blue-600 rounded-md hover:bg-blue-800 transition">
