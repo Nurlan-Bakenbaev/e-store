@@ -138,7 +138,11 @@ export const protectedRoute = async (req, res, next) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
     const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
-    req.user = { userId: decoded.userId };
+    const user = await User.findById(decoded.userId);
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    req.user = { userId: decoded.userId, user };
     next();
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -33,7 +33,7 @@ export const getFeaturedProducts = async (req, res) => {
 // create product
 export const createProduct = async (req, res) => {
   try {
-    const user = req.user;
+    console.log(req.body);
     const { name, description, price, image, category } = req.body;
     let cloudinaryResponse = null;
     if (image) {
@@ -41,22 +41,20 @@ export const createProduct = async (req, res) => {
         folder: "products",
       });
     }
+
     const product = new Product({
       name,
       description,
       price,
-      image: cloudinaryResponse?.secure_url
-        ? cloudinaryResponse.secure_url
-        : "",
+      image: cloudinaryResponse?.secure_url || "",
       category,
     });
-    product.save();
-    res.status(201).json({ status: "success", product });
+    const savedProduct = await product.save();
+    return res.status(201).json({ status: "success", product: savedProduct });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
-
 //get recomendations
 export const getRecomendations = async (req, res) => {
   try {
@@ -75,7 +73,7 @@ export const getRecomendations = async (req, res) => {
 // get by category
 export const getProductsByCategory = async (req, res) => {
   try {
-  const { category } = req.params;
+    const { category } = req.params;
 
     const products = await Product.find({ category: category });
     res.status(200).json({ products });
@@ -135,12 +133,13 @@ export const deleteProduct = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 //MIDDLEWARE FUNCTION
 export const adminRoute = (req, res, next) => {
   try {
     const user = req.user;
-    if (user.role === "admin") {
-      next();
+    if (user?.user?.role === "admin") {
+      return next();
     }
     res.status(403).json({ message: "Admin Access is required" });
   } catch (error) {

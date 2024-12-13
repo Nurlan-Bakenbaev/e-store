@@ -58,9 +58,9 @@ const SignUp = () => {
         animate="visible"
         transition={{ duration: 0.8 }}
         className="hidden md:block flex-1 relative">
-        <div className="absolute inset-0 bg-purple-900 opacity-40 z-10" />
+        <div className="absolute inset-0 bg-purple-900 opacity-30 z-10" />
         <Image
-          src="/nobg.png"
+          src="/auth/signupbg.jpg"
           alt="signup-banner"
           fill
           objectFit="cover"

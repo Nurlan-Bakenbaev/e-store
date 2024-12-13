@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, Box, Button, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { CircleX } from "lucide-react";
 const SignUpModel = ({ isOpen, setIsOpen, closeModal }) => {
   const router = useRouter();
   const navigateToLogin = () => {
@@ -15,6 +16,7 @@ const SignUpModel = ({ isOpen, setIsOpen, closeModal }) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          color: "text.primary",
           width: 400,
           height: 200,
           bgcolor: "background.paper",
@@ -45,8 +47,10 @@ const SignUpModel = ({ isOpen, setIsOpen, closeModal }) => {
             Go to Sign Up
           </Button>
         </motion.div>
-        <button onClick={closeModal} className="absolute top-2 right-3 p-2 ">
-          X
+        <button
+          onClick={closeModal}
+          className="absolute text-error top-2 right-3 p-2 ">
+          <CircleX />
         </button>
       </Box>
     </Modal>

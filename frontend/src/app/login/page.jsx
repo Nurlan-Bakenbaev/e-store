@@ -44,7 +44,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen w-screen">
+    <div className="flex flex-col md:flex-row h-screen  w-screen">
       <form
         onSubmit={handleSubmit}
         className="flex-1 flex flex-col justify-center items-center p-4 space-y-2">
@@ -66,7 +66,7 @@ const Login = () => {
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <AtSign />
           <input
-            autoComplete="on"
+            autoSave="on"
             autoFocus
             type="email"
             id="email"
@@ -89,7 +89,7 @@ const Login = () => {
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <Lock />
           <input
-            autoComplete="on"
+            autoSave="on"
             type="password"
             id="password"
             value={formData.password}
@@ -121,14 +121,16 @@ const Login = () => {
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 6, ease: "easeOut" }}
-        className="hidden md:flex flex-1 relative">
-        <div className="absolute inset-0 bg-slate-700 opacity-50 z-10" />
+        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        className="hidden md:flex flex-1  relative">
+        <div className="absolute inset-0 bg-purple-900 opacity-40 z-10" />
+
         <Image
-          src="/login.jpg"
+          src="/auth/login-bg.jpg"
           alt="login-page-photo"
           fill
-          className="object-cover "
+          className="object-cover"
+          objectPosition="center"
         />
       </motion.div>
     </div>
