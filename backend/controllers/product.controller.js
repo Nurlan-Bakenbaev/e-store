@@ -84,9 +84,9 @@ export const getProductsByCategory = async (req, res) => {
 
 //featuredProducts updating
 export const toggleFeaturedProduct = async (req, res) => {
-  const { id } = req.params;
+  const { productId } = req.params;
   try {
-    const product = await Product.findById(id);
+    const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -113,8 +113,8 @@ const updateFeaturedProducts = async () => {
 
 export const deleteProduct = async (req, res) => {
   try {
-    const { id } = req.params;
-    const product = await Product.findById(id);
+    const { productId } = req.params;
+    const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -127,7 +127,7 @@ export const deleteProduct = async (req, res) => {
         console.log(error);
       }
     }
-    await Product.findByIdAndDelete(id);
+    await Product.findByIdAndDelete(productId);
     res.status(200).json({ message: "Product deleted successfully", product });
   } catch (error) {
     res.status(500).json({ message: error.message });

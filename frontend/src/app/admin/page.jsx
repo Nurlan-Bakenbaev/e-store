@@ -13,9 +13,6 @@ const Admin = () => {
   const [selectedTab, setSelectedTab] = useState("create");
   const { user } = useUserStore();
   const router = useRouter();
-  useEffect(() => {
-    if (user?.role !== "admin") router.push("/");
-  }, [user]);
   return (
     <div>
       <motion.div

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { DollarSign } from "lucide-react";
 import { useProductsStore } from "@/stores/useProductsStore";
 import { toast } from "react-toastify";
+import { categoriesArray } from "@/lib/categories";
 
 const CreateProduct = () => {
   const [formData, setFormData] = useState({
@@ -103,14 +104,23 @@ const CreateProduct = () => {
           />
         </div>
         <div>
-          <label>Category</label>
-          <input
-            type="text"
+          <label htmlFor="category">Category:</label>
+          <select
+            className="w-full bg-transparent"
             name="category"
+            id="category"
             value={formData.category}
             onChange={handleInputChange}
-            required
-          />
+            required>
+            <option value="" disabled>
+              Select a category
+            </option>
+            {categoriesArray.map((category) => (
+              <option key={category.cat} value={category.cat}>
+                {category.cat}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <label htmlFor="img_input">Image:</label>
