@@ -21,10 +21,12 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center space-x-6">
-          <Link href="/saved" className="flex items-center">
-            <Heart className=" mr-1" />
-            Saved
-          </Link>
+          {user?.role === "customer" && (
+            <Link href="/saved" className="flex items-center">
+              <Heart className=" mr-1" />
+              Saved
+            </Link>
+          )}
           {user?.role === "customer" && (
             <div className="relative">
               <Link href="/cart" className=" flex items-center cart-link">

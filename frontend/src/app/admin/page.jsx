@@ -1,33 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@mui/material";
-import { Plus, List, BarChart2, Dice1 } from "lucide-react";
 import CreateProducts from "../components/CreateProducts";
 import Products from "../components/Products";
 import Analytics from "../components/Analytics";
+import { tabs } from "@/lib/categories";
+import { useRouter } from "next/navigation";
+import { useUserStore } from "@/stores/useUserStore";
 
 const Admin = () => {
   const [selectedTab, setSelectedTab] = useState("create");
-
-  const tabs = [
-    {
-      id: "create",
-      label: "Create",
-      icon: Plus,
-    },
-    {
-      id: "products",
-      label: "Products",
-      icon: List,
-    },
-    {
-      id: "analitics",
-      label: "Analytics",
-      icon: BarChart2,
-    },
-  ];
-
+  const { user } = useUserStore();
+  const router = useRouter();
+  useEffect(() => {
+    if (user?.role !== "admin") router.push("/");
+  }, [user]);
   return (
     <div>
       <motion.div

@@ -1,3 +1,5 @@
+import { Plus, List, BarChart2 } from "lucide-react";
+
 export const categoriesArray = [
   {
     cat: "suits",
@@ -22,5 +24,24 @@ export const categoriesArray = [
   {
     cat: "blouses",
     image: "/categories/blouse.jpg",
+  },
+];
+
+//ADMIN PANEL
+export const tabs = [
+  {
+    id: "create",
+    label: "Create",
+    icon: Plus,
+  },
+  {
+    id: "products",
+    label: "Products",
+    icon: List,
+  },
+  {
+    id: "analitics",
+    label: "Analytics",
+    icon: BarChart2,
   },
 ];

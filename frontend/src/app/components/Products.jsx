@@ -1,10 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import { DollarSign, Trash2, Star } from "lucide-react";
-import products from "@/lib/dummydata";
+import { Trash2, Star } from "lucide-react";
 import Image from "next/image";
+import StarRateIcon from "@mui/icons-material/StarRate";
+import { useProductsStore } from "@/stores/useProductsStore";
 const Products = () => {
+  const { getAllProducts, products } = useProductsStore();
+  console.log(products);
+  useEffect(() => {
+    getAllProducts();
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -13,14 +19,12 @@ const Products = () => {
       className="w-full max-w-2xl mx-auto p-3 shadow-lg bg-slate-800">
       <div>
         {products.map((product) => (
-          <div
-            key={product._id}
-            className="d-flex p-4 hover:bg-slate-700">
-            <div className="flex items-center gap-2 ">
+          <div key={product._id} className="d-flex p-4 hover:bg-slate-700">
+            <div className="flex flex-1 items-center gap-2 ">
               <Image
                 width={150}
                 height={150}
-                src={"/categories/t-shirt.jpg"}
+                src={product.image}
                 alt={product.name}
                 className="w-[80px] h-[90px] object-cover"
               />
@@ -32,14 +36,18 @@ const Products = () => {
                   </span>
                 </div>
                 <p className="text-sm text-gray-500">{product.description}</p>
+                <p className="text-lg font-semibold  text-success">
+                  ${product.price}
+                </p>
               </div>
             </div>
             <div className="d-flex flex-col">
               <button
-                className={`d-flex gap-2 p-2 ${
+                title=" Make it Featured Product"
+                className={`d-flex gap-2 p-2 hover:text-accent ${
                   product.isFeatured ? "text-yellow-500" : "text-gray-500"
                 }`}>
-                <Star size={16} />
+                <StarRateIcon size={16} />
                 Featured
               </button>
               <button

@@ -7,6 +7,7 @@ const SignUpModel = ({ isOpen, setIsOpen, closeModal }) => {
   const router = useRouter();
   const navigateToLogin = () => {
     router.push("/login");
+    setIsOpen(false);
   };
   return (
     <Modal open={isOpen} onClose={() => setIsOpen(false)}>

@@ -20,4 +20,15 @@ export const useProductsStore = create((set, get) => ({
       toast.error(error.response?.data?.message || "Product creation failed");
     }
   },
+  getAllProducts: async () => {
+    set({ loading: true });
+    try {
+      const res = await axios.get("/products");
+      set({ products: res.data.products, loading: false });
+      return res.data;
+    } catch (error) {
+      set({ loading: false });
+      toast.error(error.response?.data?.message || "Product creation failed");
+    }
+  },
 }));
