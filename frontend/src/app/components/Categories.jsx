@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const Categories = ({ cat, image }) => {
   return (
     <div className="w-[280px]  md:w-[180px] lg:w-[160px] aspect-[4/5]  max-w-md  shadow-lg relative group m-2">
-      <Link className="no-hover-link" href={`/${cat}`}>
+      <Link className="no-hover-link" href={`/categories/${cat}`}>
         <div className="relative w-full h-full">
           <div
             title={cat}

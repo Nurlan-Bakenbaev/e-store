@@ -70,4 +70,17 @@ export const useProductsStore = create((set, get) => ({
       toast.error(error.response?.data?.message || "Product update failed");
     }
   },
+  getProductByCategory: async (cat) => {
+    try {
+      set({ loading: true });
+      const res = await axios.get(`/products/${cat}`);
+      set({ loading: false });
+      set({ products: res.data.products });
+      return res.data.products;
+    } catch (error) {
+      console.log(error);
+      set({ loading: false });
+      toast.error(error.response?.data?.message || "Product creation failed");
+    }
+  },
 }));

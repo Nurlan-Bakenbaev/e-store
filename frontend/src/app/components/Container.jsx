@@ -10,7 +10,6 @@ import SignUpModel from "./SignUpModel";
 import { motion } from "framer-motion";
 
 const Container = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
 
   // Zustand stores
   const { checkingAuth, loading, checkAuth, user } = useUserStore();
@@ -18,22 +17,7 @@ const Container = ({ children }) => {
   // pathname check for auth pages
   const path = usePathname();
   const isAuthPage = path === "/signup" || path === "/login";
-
-  useEffect(() => {
-    if (!user) {
-      checkAuth();
-    }
-    if (isAuthPage || user) return;
-    const timeout = setTimeout(() => {
-      if (!user || !isOpen) {
-        setIsOpen(true);
-      }
-    }, 5000);
-    return () => clearTimeout(timeout);
-  }, [checkAuth, user, isOpen]);
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+ 
   return (
     <div
       className={`min-h-screen ${
@@ -41,11 +25,7 @@ const Container = ({ children }) => {
       } bg-gradient-to-t from-background to-foreground
         text-white relative overflow-hidden`}>
       {(checkingAuth || loading ) && <LoadingSpinner />}
-      <SignUpModel
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        closeModal={closeModal}
-      />
+   
       <ToastContainer
         newestOnTop={true}
         position="bottom-left"

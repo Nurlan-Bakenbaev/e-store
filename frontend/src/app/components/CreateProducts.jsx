@@ -14,6 +14,7 @@ const CreateProduct = () => {
     image: "",
     isFeatured: false,
   });
+  const { createProduct, loading } = useProductsStore();
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -35,8 +36,6 @@ const CreateProduct = () => {
       reader.readAsDataURL(file);
     }
   };
-
-  const { createProduct } = useProductsStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,7 +76,7 @@ const CreateProduct = () => {
           <label>Description</label>
           <textarea
             spellCheck="true"
-            maxLength={1000}
+            maxLength={500}
             name="description"
             rows="4"
             cols="50"
@@ -87,7 +86,7 @@ const CreateProduct = () => {
             required
           />
           <span className="text-xs text-gray-500">
-            {formData.description.length}/1000
+            {formData.description.length}/500
           </span>
         </div>
         <div>
@@ -149,7 +148,7 @@ const CreateProduct = () => {
         <button
           type="submit"
           className="w-full text-sm py-2 px-4 rounded-md bg-blue-600 hover:bg-blue-800">
-          Post
+          {loading ? " Posting please wait" : " Post"}
         </button>
       </form>
     </motion.div>

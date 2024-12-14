@@ -1,13 +1,38 @@
 "use client";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import Categories from "./components/Categories";
 import { categoriesArray } from "../lib/categories";
 import { motion } from "framer-motion";
 import { containerVariants, itemVariants } from "@/lib/motionAnimations";
+import { useUserStore } from "@/stores/useUserStore";
+import SignUpModel from "./components/SignUpModel";
 
 const Home = () => {
+  const { checkAuth, user } = useUserStore();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      checkAuth();
+    }
+    if (user) return;
+    const timeout = setTimeout(() => {
+      if (!user || !isOpen) {
+        setIsOpen(true);
+      }
+    }, 5000);
+    return () => clearTimeout(timeout);
+  }, [checkAuth, user]);
+  const closeModal = () => {
+    setIsOpen(false);
+  };
   return (
     <div>
+      <SignUpModel
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        closeModal={closeModal}
+      />
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
