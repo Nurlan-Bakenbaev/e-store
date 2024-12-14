@@ -14,7 +14,6 @@ const Container = ({ children }) => {
 
   // Zustand stores
   const { checkingAuth, loading, checkAuth, user } = useUserStore();
-  const { loading: productLoading } = useProductsStore();
 
   // pathname check for auth pages
   const path = usePathname();
@@ -41,7 +40,7 @@ const Container = ({ children }) => {
         isAuthPage ? "pt-0" : "pt-10"
       } bg-gradient-to-t from-background to-foreground
         text-white relative overflow-hidden`}>
-      {(checkingAuth || loading || productLoading) && <LoadingSpinner />}
+      {(checkingAuth || loading ) && <LoadingSpinner />}
       <SignUpModel
         isOpen={isOpen}
         setIsOpen={setIsOpen}

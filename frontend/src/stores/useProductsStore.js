@@ -6,6 +6,7 @@ export const useProductsStore = create((set, get) => ({
   products: [],
   setProducts: (products) => set({ products }),
   loading: false,
+  loadingProductId: null,
   createProduct: async (formData) => {
     set({ loading: true });
     try {
@@ -49,6 +50,7 @@ export const useProductsStore = create((set, get) => ({
     }
   },
   toggleFeaturedProduct: async (productId) => {
+    set({ loadingProductId: productId });
     set({ loading: true });
     try {
       const res = await axios.patch(`/products/toggle-featured/${productId}`);
@@ -61,6 +63,7 @@ export const useProductsStore = create((set, get) => ({
         }),
       }));
       toast.success("Product updated successfully");
+      set({ loadingProductId: null });
       set({ loading: false });
     } catch (error) {
       set({ loading: false });
