@@ -16,6 +16,7 @@ const useCardStore = create((set, get) => ({
       toast.error(error.response?.data?.message || "Product creation failed");
     }
   },
+
   removeFromCart: async (productId) => {
     set({ loading: true });
     try {

@@ -6,11 +6,14 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { truncateText } from "@/lib/helpers";
 import useCardStore from "@/stores/useCartStore";
+import { useUserStore } from "@/stores/useUserStore";
+import { toast } from "react-toastify";
 
 const ProductCard = ({ product, index }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTextTruncated, setIsTextTruncated] = useState(true);
   const { addToCart } = useCardStore();
+  const { user } = useUserStore();
   const handleImageClick = () => {
     setIsDialogOpen(true);
   };
@@ -18,7 +21,12 @@ const ProductCard = ({ product, index }) => {
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
-
+  const handleAddToCart = (productId) => {
+    if (!user) {
+      toast.error("Please login to add to cart");
+    }
+    addToCart(productId);
+  };
   const containerVariants = {
     hidden: {
       opacity: 0,
@@ -88,7 +96,9 @@ const ProductCard = ({ product, index }) => {
           </div>
           <div className="flex items-center justify-between mt-auto">
             <Button
-              onClick={addToCart(product._id)}
+              onClick={() => {
+                handleAddToCart(product._id);
+              }}
               variant="contained"
               color="success"
               className="flex items-center gap-2">

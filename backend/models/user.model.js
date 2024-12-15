@@ -31,6 +31,7 @@ const userSchema = new mongoose.Schema(
         product: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Product",
+          required: true,
         },
       },
     ],
@@ -54,6 +55,5 @@ userSchema.pre("save", async function (next) {
     next(error);
   }
 });
-
 
 export default mongoose.model("User", userSchema);

@@ -39,7 +39,7 @@ const Category = () => {
       </motion.div>
       <div className="w-full md:w-[90%] mx-auto flex flex-row gap-4 flex-wrap justify-center">
         {products.length > 0 &&
-          products.map((product,index) => (
+          products.map((product, index) => (
             <ProductCard key={product._id} product={product} index={index} />
           ))}
       </div>

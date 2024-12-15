@@ -11,7 +11,9 @@ const Navbar = () => {
   const { user, logout } = useUserStore();
   if (path === "/login" || path === "/signup") return null;
   return (
-    <nav className="text-neutral nav-bar p-4 h-[80px] drop-shadow-2xl border-b border-primary">
+    <nav
+      className="text-neutral nav-bar p-4 h-[80px] drop-shadow-2xl
+     border-b border-primary relative z-50">
       <div className=" flex justify-between items-center w-full md:w-[80%] mx-auto ">
         <div className=" flex items-center text-2xl">
           <Image src="/logotip.png" alt="logotip" width={55} height={55} />
@@ -35,7 +37,7 @@ const Navbar = () => {
                 <span
                   className="w-[22px] h-[22px] rounded-full bg-success opacity-[90%]
              absolute bottom-[-10px] right-[-10px]  text-center ">
-                  {1}
+                  {user.cartItems.length}
                 </span>
               </Link>
             </div>
