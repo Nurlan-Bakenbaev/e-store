@@ -10,24 +10,24 @@ import SignUpModel from "./SignUpModel";
 import { motion } from "framer-motion";
 
 const Container = ({ children }) => {
-
   // Zustand stores
   const { checkingAuth, loading, checkAuth, user } = useUserStore();
 
   // pathname check for auth pages
   const path = usePathname();
   const isAuthPage = path === "/signup" || path === "/login";
- 
+
   return (
     <div
       className={`min-h-screen ${
         isAuthPage ? "pt-0" : "pt-10"
       } bg-gradient-to-t from-background to-foreground
         text-white relative overflow-hidden`}>
-      {(checkingAuth || loading ) && <LoadingSpinner />}
-   
+      {(checkingAuth || loading) && <LoadingSpinner />}
+
       <ToastContainer
         newestOnTop={true}
+        limit={2}
         position="bottom-left"
         autoClose={2000}
         pauseOnFocusLoss={false}
