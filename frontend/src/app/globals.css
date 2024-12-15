@@ -49,13 +49,8 @@ input::placeholder {
 a {
   transition: all 0.2s ease-in-out;
 }
-.no-hover-link:hover {
-  text-decoration: none;
-  transform: none;
-  cursor: pointer;
-  color: white;
-}
-a:hover {
+
+nav a:hover {
   color: var(--color-accent);
   cursor: pointer;
   text-decoration: underline;

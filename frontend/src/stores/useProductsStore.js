@@ -80,7 +80,7 @@ export const useProductsStore = create((set, get) => ({
     } catch (error) {
       console.log(error);
       set({ loading: false });
-      toast.error(error.response?.data?.message || "Product creation failed");
+      toast.error(error.response?.data?.message || "ERR_NETWORK");
     }
   },
 }));

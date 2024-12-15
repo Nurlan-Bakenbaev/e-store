@@ -10,12 +10,10 @@ const Category = () => {
   const { id: categories } = useParams();
   const { products, getProductByCategory } = useProductsStore();
   const { checkAuth } = useUserStore();
+
   useEffect(() => {
     getProductByCategory(categories);
-    checkAuth();
   }, [categories]);
-  console.log(products);
-
   if (products.length === 0) return <LoadingSpinner />;
   const containerVariants = {
     hidden: {

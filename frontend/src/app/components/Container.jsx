@@ -12,6 +12,9 @@ import { motion } from "framer-motion";
 const Container = ({ children }) => {
   // Zustand stores
   const { checkingAuth, loading, checkAuth, user } = useUserStore();
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth,!user]);
 
   // pathname check for auth pages
   const path = usePathname();

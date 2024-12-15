@@ -31,18 +31,18 @@ export const addToCart = async (req, res) => {
 
 export const getCart = async (req, res) => {
   try {
-    const cartProduct = await Product.find({
-      _id: { $in: req.user.cartItems },
+    const user = await User.findById(req.user.userId);
+    const productIds = user.cartItems.map((item) => item.product.toString());
+    const products = await Product.find({ _id: { $in: productIds } }, null, {
+      lean: true,
+
     });
-    const cartItems = cartProduct.map((product) => {
-      const item = req.user.cartItems.find(
-        (cartItem) => cartItem._id === item._id
-      );
-      return {
-        ...product.toJSON(),
-        quantity: item.quantity,
-      };
-    });
+    const cartItems = products.map((product) => ({
+      ...product,
+      quantity: user.cartItems.find(
+        (item) => item.product.toString() === product._id.toString()
+      ).quantity,
+    }));
     res.json({ cartItems });
   } catch (error) {
     res.status(500).json({ message: error.message });
