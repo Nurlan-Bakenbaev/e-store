@@ -35,8 +35,8 @@ export const useCartStore = create((set, get) => ({
   getCartItems: async () => {
     try {
       const res = await axios.get("/cart/get");
-      console.log(res.data);
       set({ cart: res.data.cartItems || [] });
+      console.log(res.data);
       get().calculateTotals();
     } catch (error) {
       set({ cart: [] });
@@ -48,7 +48,7 @@ export const useCartStore = create((set, get) => ({
   },
   addToCart: async (product) => {
     try {
-      await axios.post("/cart", { productId: product._id });
+      await axios.post("/cart/add", { productId: product._id });
       toast.success("Product added to cart");
 
       set((prevState) => {
@@ -69,27 +69,31 @@ export const useCartStore = create((set, get) => ({
       toast.error(error.response.data.message || "An error occurred");
     }
   },
-  removeFromCart: async (productId) => {
-    await axios.delete(`/cart`, { data: { productId } });
+  removeFromCart: async (product) => {
+    await axios.delete(`/cart/delete`, { productId: product._id });
     set((prevState) => ({
-      cart: prevState.cart.filter((item) => item._id !== productId),
+      cart: prevState.cart.filter((item) => item._id !== product.id),
     }));
     get().calculateTotals();
   },
-  updateQuantity: async (productId, quantity) => {
-    if (quantity === 0) {
-      get().removeFromCart(productId);
-      return;
-    }
+  updateQuantity: async (product) => {
+    try {
+      await axios.put(`/cart/update/${product._id}`);
+      set((prevState) => ({
+        cart: prevState.cart.map((item) =>
+          item._id === product._id
+            ? { ...item, quantity: product.quantity }
+            : item
+        ),
+      }));
 
-    await axios.put(`/cart/${productId}`, { quantity });
-    set((prevState) => ({
-      cart: prevState.cart.map((item) =>
-        item._id === productId ? { ...item, quantity } : item
-      ),
-    }));
-    get().calculateTotals();
+      // Recalculate totals after updating the cart
+      get().calculateTotals();
+    } catch (error) {
+      // Optionally handle the error (e.g., rollback state if the request fails)
+    }
   },
+
   calculateTotals: () => {
     const { cart, coupon } = get();
     const subtotal = cart.reduce(

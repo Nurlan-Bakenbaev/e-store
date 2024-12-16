@@ -35,7 +35,7 @@ const OrderSumm = ({ total, coupon, subtotal }) => {
               <dt className="text-base font-normal text-gray-400">
                 Original price
               </dt>
-              <dd className="text-base font-medium text-white">{subtotal}</dd>
+              <dd className="text-base font-medium text-white">${subtotal}</dd>
             </dl>
             <dl className="flex items-center justify-between gap-4">
               <dt className="text-base font-normal text-gray-400">Discount</dt>

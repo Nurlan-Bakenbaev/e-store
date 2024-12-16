@@ -28,13 +28,13 @@ const setCookies = (res, { accessToken, refreshToken }) => {
     httpOnly: true,
     secure: false,
     sameSite: "Lax",
-    maxAge: 15 * 60 * 1000, // 15 minutes
+    maxAge: 15 * 60 * 1000, 
   });
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: false,
     sameSite: "Lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    maxAge: 10 * 24 * 60 * 60 * 1000, 
   });
 };
 export const signup = async (req, res) => {
