@@ -5,25 +5,24 @@ import CartCard from "../components/CartCard";
 import OrderSumm from "../components/OrderSumm";
 import { useCartStore } from "@/stores/useCartStore";
 const Cart = () => {
-  const { removeFromCart, updateQuantity, addToCart } = useCartStore();
+  const { updateQuantity, addToCart, deleteFromCart } = useCartStore();
   const { cart, coupon, total, subtotal, loading, getCartItems } =
     useCartStore();
-    console.log(cart)
-  const incrementItemQuantity = async (cart) => {
-    await addToCart(cart);
+  const incrementItemQuantity = async (cartItem) => {
+    await addToCart(cartItem);
     getCartItems();
   };
-  const decrementItemQuantity = async (cart) => {
-    await updateQuantity(cart);
+  const decrementItemQuantity = async (cartItem) => {
+    await updateQuantity(cartItem);
     getCartItems();
   };
-
+  const deleteItemFromCart = async (cartItem) => {
+    await deleteFromCart(cartItem);
+    getCartItems();
+  };
   useEffect(() => {
     getCartItems();
   }, [getCartItems]);
-  useEffect(() => {
-    console.log("Cart updated:", cart);
-  }, [cart]);
   return (
     <div>
       <motion.div
@@ -46,6 +45,7 @@ const Cart = () => {
               key={index}
               incrementItemQuantity={incrementItemQuantity}
               decrementItemQuantity={decrementItemQuantity}
+              deleteItemFromCart={deleteItemFromCart}
             />
           ))}
         </div>

@@ -4,8 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const CartCard = ({ cart, decrementItemQuantity, incrementItemQuantity }) => {
-  
+const CartCard = ({
+  cart,
+  decrementItemQuantity,
+  deleteItemFromCart,
+  incrementItemQuantity,
+}) => {
   return (
     <div className="relative rounded-lg p-4 mb-2 shadow-sm bg-slate-800 md:p-6">
       <div className="space-y-2 md:flex md:items-center md:justify-between gap-4">
@@ -51,6 +55,7 @@ const CartCard = ({ cart, decrementItemQuantity, incrementItemQuantity }) => {
         </div>
       </div>
       <button
+        onClick={() => deleteItemFromCart(cart)}
         type="button"
         className="text-red-600  hover:text-red-700 absolute top-3 right-5">
         <Trash size={20} />

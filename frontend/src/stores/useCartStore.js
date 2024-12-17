@@ -7,14 +7,11 @@ export const useCartStore = create((set, get) => ({
   total: 0,
   subtotal: 0,
   isCouponApplied: false,
-
   getMyCoupon: async () => {
     try {
       const response = await axios.get("/coupons");
       set({ coupon: response.data });
-    } catch (error) {
-      console.error("Error fetching coupon:", error);
-    }
+    } catch (error) {}
   },
   applyCoupon: async (code) => {
     try {
@@ -31,12 +28,10 @@ export const useCartStore = create((set, get) => ({
     get().calculateTotals();
     toast.success("Coupon removed");
   },
-
   getCartItems: async () => {
     try {
       const res = await axios.get("/cart/get");
       set({ cart: res.data.cartItems || [] });
-      console.log(res.data);
       get().calculateTotals();
     } catch (error) {
       set({ cart: [] });
@@ -69,12 +64,16 @@ export const useCartStore = create((set, get) => ({
       toast.error(error.response.data.message || "An error occurred");
     }
   },
-  removeFromCart: async (product) => {
-    await axios.delete(`/cart/delete`, { productId: product._id });
-    set((prevState) => ({
-      cart: prevState.cart.filter((item) => item._id !== product.id),
-    }));
-    get().calculateTotals();
+  deleteFromCart: async (product) => {
+    try {
+      await axios.delete(`/cart/delete`, { data: { productId: product._id } });
+      set((prevState) => ({
+        cart: prevState.cart.filter((item) => item._id !== product.id),
+      }));
+      get().calculateTotals();
+    } catch (error) {
+      console.log(error);
+    }
   },
   updateQuantity: async (product) => {
     try {
@@ -87,13 +86,9 @@ export const useCartStore = create((set, get) => ({
         ),
       }));
 
-      // Recalculate totals after updating the cart
       get().calculateTotals();
-    } catch (error) {
-      // Optionally handle the error (e.g., rollback state if the request fails)
-    }
+    } catch (error) {}
   },
-
   calculateTotals: () => {
     const { cart, coupon } = get();
     const subtotal = cart.reduce(
@@ -101,12 +96,10 @@ export const useCartStore = create((set, get) => ({
       0
     );
     let total = subtotal;
-
     if (coupon) {
       const discount = subtotal * (coupon.discountPercentage / 100);
       total = subtotal - discount;
     }
-
     set({ subtotal, total });
   },
 }));

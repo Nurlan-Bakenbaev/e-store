@@ -4,7 +4,8 @@ import bcrypt from "bcrypt";
 import { redis } from "../lib/redis.js";
 const generateTokens = (userId) => {
   const accessToken = jwt.sign({ userId }, process.env.JWT_SECRET, {
-    expiresIn: "15m",
+    expiresIn: "1d",
+    //change in to 15 min in development 
   });
   const refreshToken = jwt.sign({ userId }, process.env.JWT_SECRET, {
     expiresIn: "7d",
@@ -28,13 +29,13 @@ const setCookies = (res, { accessToken, refreshToken }) => {
     httpOnly: true,
     secure: false,
     sameSite: "Lax",
-    maxAge: 15 * 60 * 1000, 
+    maxAge: 25 * 60 * 60 * 1000, // change it in production to 15 * 60 * 1000 (15min)
   });
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: false,
     sameSite: "Lax",
-    maxAge: 10 * 24 * 60 * 60 * 1000, 
+    maxAge: 10 * 24 * 60 * 60 * 1000,
   });
 };
 export const signup = async (req, res) => {

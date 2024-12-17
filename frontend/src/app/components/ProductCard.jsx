@@ -5,14 +5,14 @@ import { Star, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { truncateText } from "@/lib/helpers";
-import useCardStore from "@/stores/useCartStore";
 import { useUserStore } from "@/stores/useUserStore";
 import { toast } from "react-toastify";
+import { useCartStore } from "@/stores/useCartStore";
 
 const ProductCard = ({ product, index }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTextTruncated, setIsTextTruncated] = useState(true);
-  const { addToCart } = useCardStore();
+  const { addToCart } = useCartStore();
   const { user } = useUserStore();
   const handleImageClick = () => {
     setIsDialogOpen(true);
@@ -97,7 +97,7 @@ const ProductCard = ({ product, index }) => {
           <div className="flex items-center justify-between mt-auto">
             <Button
               onClick={() => {
-                handleAddToCart(product._id);
+                handleAddToCart(product);
               }}
               variant="contained"
               color="success"
@@ -108,7 +108,7 @@ const ProductCard = ({ product, index }) => {
         </div>
       </motion.div>
 
-      {/* Dialog Model to show product image */}
+      {/* Dialog Model to show image of product  */}
       <Dialog
         open={isDialogOpen}
         onClose={handleCloseDialog}

@@ -16,7 +16,7 @@ const Navbar = () => {
      border-b border-primary relative z-50">
       <div className=" flex justify-between items-center w-full md:w-[80%] mx-auto ">
         <div className=" flex items-center text-2xl">
-          <Image src="/logotip.png" alt="logotip" width={55} height={55} />
+          <img src="/logotip.png" alt="logotip" className="w-12 h-12" />
           <Link href="/" className="hidden md:flex items-center no-hover-link">
             <span className="text-4xl font-bold text-accent">Shop</span>
             <span className="text-4xl font-bold text-success mr-1">per</span>
