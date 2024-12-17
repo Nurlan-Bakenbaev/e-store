@@ -7,14 +7,15 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 import ProductCard from "@/app/components/ProductCard";
 import { useUserStore } from "@/stores/useUserStore";
 const Category = () => {
-  const { id: categories } = useParams();
   const { products, getProductByCategory } = useProductsStore();
-  const { checkAuth } = useUserStore();
+  const { id: categories } = useParams();
 
   useEffect(() => {
     getProductByCategory(categories);
   }, [categories]);
   if (products.length === 0) return <LoadingSpinner />;
+
+  // Animations 
   const containerVariants = {
     hidden: {
       opacity: 0,

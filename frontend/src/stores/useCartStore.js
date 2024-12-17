@@ -7,6 +7,7 @@ export const useCartStore = create((set, get) => ({
   total: 0,
   subtotal: 0,
   isCouponApplied: false,
+  isLoading: false,
   getMyCoupon: async () => {
     try {
       const response = await axios.get("/coupons");
@@ -65,10 +66,12 @@ export const useCartStore = create((set, get) => ({
   },
   deleteFromCart: async (product) => {
     try {
+      set({ isLoading: true });
       await axios.delete(`/cart/delete`, { data: { productId: product._id } });
       set((prevState) => ({
         cart: prevState.cart.filter((item) => item._id !== product.id),
       }));
+      set({ isLoading: false });
       get().calculateTotals();
     } catch (error) {
       console.log(error);

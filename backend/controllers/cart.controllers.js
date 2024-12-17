@@ -7,7 +7,6 @@ export const addToCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     const { productId } = req.body;
-    console.log(req.body);
     if (!productId) {
       return res.status(400).json({ message: "Product ID is required" });
     }
@@ -68,7 +67,6 @@ export const updateQuantity = async (req, res) => {
 export const removeAllFromCart = async (req, res) => {
   try {
     const { productId } = req.body;
-    console.log(productId);
     const user = await User.findById(req.user.userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -76,14 +74,12 @@ export const removeAllFromCart = async (req, res) => {
     user.cartItems = user.cartItems.filter(
       (item) => item.product.toString() !== productId
     );
-    console.log(user.cartItems);
     await user.save();
     return res.status(200).json({
       message: "Product removed from cart successfully",
       cartItems: user.cartItems,
     });
   } catch (error) {
-    console.error("Error removing product from cart:", error);
     return res.status(500).json({
       message: "An error occurred while removing the product from the cart",
       error: error.message,

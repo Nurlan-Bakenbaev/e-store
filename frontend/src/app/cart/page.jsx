@@ -6,18 +6,27 @@ import OrderSumm from "../components/OrderSumm";
 import { useCartStore } from "@/stores/useCartStore";
 import EmptyCart from "../components/EmptyCart";
 const Cart = () => {
-  const { updateQuantity, addToCart, deleteFromCart } = useCartStore();
-  const { cart, coupon, total, subtotal, getCartItems } = useCartStore();
-  const incrementItemQuantity = async (cartItem) => {
-    await addToCart(cartItem);
+  const {
+    updateQuantity,
+    addToCart,
+    deleteFromCart,
+    cart,
+    coupon,
+    total,
+    subtotal,
+    getCartItems,
+    isLoading,
+  } = useCartStore();
+  const handleIncrementQuantity = async (item) => {
+    await addToCart(item);
     getCartItems();
   };
-  const decrementItemQuantity = async (cartItem) => {
-    await updateQuantity(cartItem);
+  const handleDecrementQuantity = async (item) => {
+    await updateQuantity(item);
     getCartItems();
   };
-  const deleteItemFromCart = async (cartItem) => {
-    await deleteFromCart(cartItem);
+  const handleDeleteItem = (item) => {
+    deleteFromCart(item);
     getCartItems();
   };
   useEffect(() => {
@@ -45,17 +54,18 @@ const Cart = () => {
         ) : (
           <>
             <div className="w-full max-w-2xl mx-auto">
-              {cart.map((cart, index) => (
+              {cart.map((item, index) => (
                 <CartCard
-                  cart={cart}
                   key={index}
-                  incrementItemQuantity={incrementItemQuantity}
-                  decrementItemQuantity={decrementItemQuantity}
-                  deleteItemFromCart={deleteItemFromCart}
+                  cart={item}
+                  incrementItemQuantity={handleIncrementQuantity}
+                  decrementItemQuantity={handleDecrementQuantity}
+                  deleteItemFromCart={handleDeleteItem}
+                  isLoading={isLoading}
                 />
               ))}
             </div>
-            <div className="w-full max-w-2xl md:max-w-lg  mx-auto flex flex-col gap-4">
+            <div className="w-full max-w-2xl md:max-w-lg mx-auto flex flex-col gap-4">
               <OrderSumm coupon={coupon} total={total} subtotal={subtotal} />
             </div>
           </>

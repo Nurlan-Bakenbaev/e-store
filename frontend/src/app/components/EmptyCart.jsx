@@ -4,9 +4,9 @@ import Link from "next/link";
 
 const EmptyCart = () => {
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex justify-center items-center mt-12 ">
       <div className="text-center">
-        <ShoppingCart size={150} className="mx-auto mb-5" />
+        <ShoppingCart size={150} className="mx-auto mb-4" />
         <h2 className="text-xl font-semibold">Your Cart is Empty</h2>
         <Link
           href={"/"}

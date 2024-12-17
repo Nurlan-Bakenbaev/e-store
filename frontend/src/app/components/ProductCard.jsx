@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { Star, ShoppingCart } from "lucide-react";
 import Image from "next/image";
@@ -26,6 +26,9 @@ const ProductCard = ({ product, index }) => {
       toast.error("Please login to add to cart");
     }
     await addToCart(productId);
+    toast.success("Product added to cart", {
+      autoClose: 4000,
+    });
     getCartItems();
   };
   const containerVariants = {
@@ -42,11 +45,19 @@ const ProductCard = ({ product, index }) => {
       },
     },
   };
+  const [isInCart, setIsInCart] = useState(true);
 
   const handleToggleTruncateText = () => {
     setIsTextTruncated(!isTextTruncated);
   };
-
+  useEffect(() => {
+    if (user) {
+      setIsInCart(
+        user?.cartItems.some((item) => item.product.toString() === product._id)
+      );
+    }
+    getCartItems();
+  }, [user, product._id]);
   return (
     <>
       <motion.div
@@ -103,7 +114,8 @@ const ProductCard = ({ product, index }) => {
               variant="contained"
               color="success"
               className="flex items-center gap-2">
-              <ShoppingCart size={18} /> Add
+              <ShoppingCart size={18} />
+              {isInCart ? "Added to cart" : "Add to cart"}
             </Button>
           </div>
         </div>
