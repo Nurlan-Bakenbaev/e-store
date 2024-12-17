@@ -29,11 +29,16 @@ const Container = ({ children }) => {
       {(checkingAuth || loading) && <LoadingSpinner />}
       <ToastContainer
         newestOnTop={true}
+        rtl={false}
+        closeOnClick
+        hideProgressBar={false}
+        closeButton={true}
+        draggable
         limit={2}
         position="bottom-left"
         autoClose={2000}
         pauseOnFocusLoss={false}
-        pauseOnHover={false}
+        pauseOnHover={true}
         theme="colored"
       />
       <motion.div

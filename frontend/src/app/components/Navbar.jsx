@@ -1,14 +1,15 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { use } from "react";
 import { usePathname } from "next/navigation";
 import { Heart, ShoppingCart, LogOut, LogIn, Gauge } from "lucide-react";
 import { Button } from "@mui/material";
-import Image from "next/image";
 import { useUserStore } from "@/stores/useUserStore";
+import { useCartStore } from "@/stores/useCartStore";
 const Navbar = () => {
   const path = usePathname();
   const { user, logout } = useUserStore();
+  const { cart } = useCartStore();
   if (path === "/login" || path === "/signup") return null;
   return (
     <nav
@@ -37,7 +38,7 @@ const Navbar = () => {
                 <span
                   className="w-[22px] h-[22px] rounded-full bg-success opacity-[90%]
              absolute bottom-[-10px] right-[-10px]  text-center ">
-                  {user.cartItems.length}
+                  {cart?.length || 0}
                 </span>
               </Link>
             </div>

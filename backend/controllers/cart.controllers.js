@@ -68,13 +68,15 @@ export const updateQuantity = async (req, res) => {
 export const removeAllFromCart = async (req, res) => {
   try {
     const { productId } = req.body;
+    console.log(productId);
     const user = await User.findById(req.user.userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
     user.cartItems = user.cartItems.filter(
-      (item) => item._id.toString() !== productId
+      (item) => item.product.toString() !== productId
     );
+    console.log(user.cartItems);
     await user.save();
     return res.status(200).json({
       message: "Product removed from cart successfully",

@@ -44,8 +44,6 @@ export const useCartStore = create((set, get) => ({
   addToCart: async (product) => {
     try {
       await axios.post("/cart/add", { productId: product._id });
-      toast.success("Product added to cart");
-
       set((prevState) => {
         const existingItem = prevState.cart.find(
           (item) => item._id === product._id
@@ -57,6 +55,7 @@ export const useCartStore = create((set, get) => ({
                 : item
             )
           : [...prevState.cart, { ...product, quantity: 1 }];
+
         return { cart: newCart };
       });
       get().calculateTotals();
@@ -85,7 +84,6 @@ export const useCartStore = create((set, get) => ({
             : item
         ),
       }));
-
       get().calculateTotals();
     } catch (error) {}
   },

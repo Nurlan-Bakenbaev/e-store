@@ -12,7 +12,7 @@ import { useCartStore } from "@/stores/useCartStore";
 const ProductCard = ({ product, index }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTextTruncated, setIsTextTruncated] = useState(true);
-  const { addToCart } = useCartStore();
+  const { addToCart, getCartItems } = useCartStore();
   const { user } = useUserStore();
   const handleImageClick = () => {
     setIsDialogOpen(true);
@@ -21,11 +21,12 @@ const ProductCard = ({ product, index }) => {
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
-  const handleAddToCart = (productId) => {
+  const handleAddToCart = async (productId) => {
     if (!user) {
       toast.error("Please login to add to cart");
     }
-    addToCart(productId);
+    await addToCart(productId);
+    getCartItems();
   };
   const containerVariants = {
     hidden: {
