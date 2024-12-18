@@ -4,13 +4,19 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 const Categories = ({ cat, image }) => {
   return (
-    <div className="w-[280px]  md:w-[180px] lg:w-[160px] aspect-[4/5]  max-w-md  shadow-lg relative group m-2">
+    <div
+      className="w-[280px]  md:w-[180px] 
+    lg:w-[160px] aspect-[4/5]
+      max-w-md  shadow-lg relative group
+      m-2 px-2 md:px-0 ">
       <Link className="no-hover-link" href={`/categories/${cat}`}>
         <div className="relative w-full h-full">
           <div
             title={cat}
-            className="absolute w-full h-full rounded-lg flex justify-center 
-          inset-0 bg-black opacity-0 group-hover:opacity-40
+            className="absolute w-full h-full 
+            rounded-lg flex justify-center 
+          inset-0 bg-black opacity-0
+           group-hover:opacity-40
            duration-300 ease-in-out z-10 "
           />
           <Image

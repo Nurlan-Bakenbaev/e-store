@@ -42,7 +42,7 @@ const Home = () => {
         </h1>
       </motion.div>
       <motion.div
-        className="w-full md:w-[90%] mx-auto flex flex-row flex-wrap justify-center"
+        className="w-full md:w-[90%]  mx-auto flex flex-row flex-wrap justify-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible">

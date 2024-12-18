@@ -14,6 +14,8 @@ const ProductCard = ({ product, index }) => {
   const [isTextTruncated, setIsTextTruncated] = useState(true);
   const { addToCart, getCartItems } = useCartStore();
   const { user } = useUserStore();
+  const [isInCart, setIsInCart] = useState(true);
+
   const handleImageClick = () => {
     setIsDialogOpen(true);
   };
@@ -22,6 +24,7 @@ const ProductCard = ({ product, index }) => {
     setIsDialogOpen(false);
   };
   const handleAddToCart = async (productId) => {
+    setIsInCart(true);
     if (!user) {
       toast.error("Please login to add to cart");
     }
@@ -45,7 +48,6 @@ const ProductCard = ({ product, index }) => {
       },
     },
   };
-  const [isInCart, setIsInCart] = useState(true);
 
   const handleToggleTruncateText = () => {
     setIsTextTruncated(!isTextTruncated);
@@ -57,7 +59,7 @@ const ProductCard = ({ product, index }) => {
       );
     }
     getCartItems();
-  }, [user, product._id]);
+  }, [user?.cartItems, product?._id]);
   return (
     <>
       <motion.div
@@ -69,7 +71,7 @@ const ProductCard = ({ product, index }) => {
         sm:flex-row items-center gap-4 group`}>
         <div onClick={handleImageClick} className="cursor-pointer">
           <Image
-            height={350}
+            height={280}
             width={280}
             src={product.image}
             alt={"photo of " + product.name}

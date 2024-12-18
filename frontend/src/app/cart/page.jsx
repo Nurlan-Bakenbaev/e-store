@@ -15,23 +15,20 @@ const Cart = () => {
     total,
     subtotal,
     getCartItems,
-    isLoading,
+    isLoadingId,
   } = useCartStore();
-  const handleIncrementQuantity = async (item) => {
-    await addToCart(item);
+  useEffect(() => {
     getCartItems();
+  }, [cart.quantity, getCartItems]);
+  const handleIncrementQuantity = (item) => {
+    addToCart(item);
   };
-  const handleDecrementQuantity = async (item) => {
-    await updateQuantity(item);
-    getCartItems();
+  const handleDecrementQuantity = (item) => {
+    updateQuantity(item);
   };
   const handleDeleteItem = (item) => {
     deleteFromCart(item);
-    getCartItems();
   };
-  useEffect(() => {
-    getCartItems();
-  }, [getCartItems]);
   return (
     <div>
       <motion.div
@@ -61,7 +58,7 @@ const Cart = () => {
                   incrementItemQuantity={handleIncrementQuantity}
                   decrementItemQuantity={handleDecrementQuantity}
                   deleteItemFromCart={handleDeleteItem}
-                  isLoading={isLoading}
+                  isLoadingId={isLoadingId}
                 />
               ))}
             </div>

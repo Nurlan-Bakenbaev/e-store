@@ -47,6 +47,7 @@ export const getCart = async (req, res) => {
 export const updateQuantity = async (req, res) => {
   try {
     const { id } = req.params;
+
     const user = await User.findById(req.user.userId);
     const existingProduct = user.cartItems.find(
       (item) => item.product.toString() === id
@@ -58,7 +59,8 @@ export const updateQuantity = async (req, res) => {
         return res.status(200).json({ success: true });
       }
       await user.save();
-      return res.status(200).json({ success: true });
+      console.log(user);
+      return res.status(200).json({ success: true, user });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });

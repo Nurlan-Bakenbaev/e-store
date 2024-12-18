@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { useProductsStore } from "@/stores/useProductsStore";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import ProductCard from "@/app/components/ProductCard";
-import { useUserStore } from "@/stores/useUserStore";
 const Category = () => {
   const { products, getProductByCategory } = useProductsStore();
   const { id: categories } = useParams();
@@ -14,8 +13,7 @@ const Category = () => {
     getProductByCategory(categories);
   }, [categories]);
   if (products.length === 0) return <LoadingSpinner />;
-
-  // Animations 
+  // Animations
   const containerVariants = {
     hidden: {
       opacity: 0,
@@ -34,7 +32,7 @@ const Category = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4, ease: "easeInOut" }}>
-        <h1 className="text-xl md:text-4xl mb-5 text-center capitalize">
+        <h1 className="text-xl md:text-4xl mb-5 text-center uppercase">
           {categories}
         </h1>
       </motion.div>
