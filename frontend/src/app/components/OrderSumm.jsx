@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 
-const OrderSumm = ({ total, coupon, subtotal }) => {
+const OrderSumm = ({ total, coupon, subtotal, isCouponApplied }) => {
   return (
     <>
       <div className="space-y-4 rounded-lg p-4 shadow-sm bg-slate-800">
@@ -26,7 +26,14 @@ const OrderSumm = ({ total, coupon, subtotal }) => {
             Apply
           </Button>
         </form>
+        {coupon && isCouponApplied && (
+          <dl className="flex items-center justify-between">
+            <dt className="text-sm">Coupon: {coupon.code}</dt>
+            <dt className="text-sm">{`${coupon.discountPercentage}%`}</dt>
+          </dl>
+        )}
       </div>
+
       <div className="space-y-4 rounded-lg  bg-slate-800 p-4 shadow-sm  sm:p-6">
         <p className="text-xl font-semibold ">Order summary</p>
         <div className="space-y-4">

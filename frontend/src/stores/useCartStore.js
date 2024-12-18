@@ -8,6 +8,7 @@ export const useCartStore = create((set, get) => ({
   subtotal: 0,
   isCouponApplied: false,
   isLoadingId: null,
+  recomendations: [],
   getMyCoupon: async () => {
     try {
       const response = await axios.get("/coupons");
@@ -104,5 +105,15 @@ export const useCartStore = create((set, get) => ({
       total = subtotal - discount;
     }
     set({ subtotal, total });
+  },
+  fetchRecomendation: async () => {
+    try {
+      const res = await axios.get("/products/get/recommendations");
+      set({ recomendations: res.data });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   },
 }));

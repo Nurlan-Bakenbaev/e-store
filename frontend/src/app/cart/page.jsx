@@ -1,10 +1,13 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import CartCard from "../components/CartCard";
 import OrderSumm from "../components/OrderSumm";
 import { useCartStore } from "@/stores/useCartStore";
 import EmptyCart from "../components/EmptyCart";
+import RecommendedProducts from "../components/RecomendedProducts";
+import ProductCard from "../components/ProductCard";
+
 const Cart = () => {
   const {
     updateQuantity,
@@ -16,9 +19,13 @@ const Cart = () => {
     subtotal,
     getCartItems,
     isLoadingId,
+    recomendations,
+    fetchRecomendation,
   } = useCartStore();
+  console.log(recomendations);
   useEffect(() => {
     getCartItems();
+    fetchRecomendation();
   }, [cart.quantity, getCartItems]);
   const handleIncrementQuantity = (item) => {
     addToCart(item);
@@ -49,23 +56,41 @@ const Cart = () => {
             <EmptyCart />
           </div>
         ) : (
-          <>
-            <div className="w-full max-w-2xl mx-auto">
-              {cart.map((item, index) => (
-                <CartCard
-                  key={index}
-                  cart={item}
-                  incrementItemQuantity={handleIncrementQuantity}
-                  decrementItemQuantity={handleDecrementQuantity}
-                  deleteItemFromCart={handleDeleteItem}
-                  isLoadingId={isLoadingId}
-                />
-              ))}
+          <div className="flex flex-col w-full">
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="w-full max-w-2xl mx-auto">
+                {cart.map((item, index) => (
+                  <CartCard
+                    key={index}
+                    cart={item}
+                    incrementItemQuantity={handleIncrementQuantity}
+                    decrementItemQuantity={handleDecrementQuantity}
+                    deleteItemFromCart={handleDeleteItem}
+                    isLoadingId={isLoadingId}
+                  />
+                ))}
+              </div>
+              <div className="w-full max-w-xl md:max-w-lg mx-auto flex flex-col gap-4">
+                <OrderSumm coupon={coupon} total={total} subtotal={subtotal} />
+              </div>
             </div>
-            <div className="w-full max-w-2xl md:max-w-lg mx-auto flex flex-col gap-4">
-              <OrderSumm coupon={coupon} total={total} subtotal={subtotal} />
+
+            <div className="hidden xl:mt-8 md:block">
+              <h3 className="text-xl font-semibold text-center mt-8">
+                People also bought
+              </h3>
+              <div className="mt-4 grid grid-cols-3 gap-5 overflow-auto max-w-2xl">
+                {recomendations.recommendations?.map((product, index) => (
+                  <ProductCard
+                    product={product}
+                    index={index}
+                    key={index}
+                    size="small"
+                  />
+                ))}
+              </div>
             </div>
-          </>
+          </div>
         )}
       </motion.div>
     </div>

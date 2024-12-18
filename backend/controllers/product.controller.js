@@ -56,17 +56,24 @@ export const createProduct = async (req, res) => {
   }
 };
 //get recomendations
-export const getRecomendations = async (req, res) => {
+export const getRecommendations = async (req, res) => {
   try {
-    const recomendations = await Product.find([
+    const recommendations = await Product.aggregate([
       {
-        $sample: { size: 3 },
+        $sample: { size: 6 },
       },
-      { $project: { name: 1, image: 1, description: 1, price: 1, image: 1 } },
+      {
+        $project: {
+          name: 1,
+          image: 1,
+          description: 1,
+          price: 1,
+        },
+      },
     ]);
-    res.status(200).json({ recomendations });
+    res.status(200).json({ recommendations });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json(error.message);
   }
 };
 

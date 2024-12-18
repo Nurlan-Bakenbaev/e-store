@@ -9,7 +9,7 @@ import { useUserStore } from "@/stores/useUserStore";
 import { toast } from "react-toastify";
 import { useCartStore } from "@/stores/useCartStore";
 
-const ProductCard = ({ product, index }) => {
+const ProductCard = ({ product, index, size }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTextTruncated, setIsTextTruncated] = useState(true);
   const { addToCart, getCartItems } = useCartStore();
@@ -67,37 +67,47 @@ const ProductCard = ({ product, index }) => {
         initial="hidden"
         animate="visible"
         className={`bg-slate-800 hover:bg-slate-700 p-4 rounded-md 
-        shadow-md w-full max-w-lg min-w-[280px] flex flex-col 
-        sm:flex-row items-center gap-4 group`}>
+        shadow-md w-full ${
+          size ? "max-w-md" : " max-w-lg min-w-[280px]"
+        } flex flex-col 
+        sm:flex-${size ? "col" : "row"} items-center gap-4 group`}>
         <div onClick={handleImageClick} className="cursor-pointer">
           <Image
             height={280}
             width={280}
             src={product.image}
             alt={"photo of " + product.name}
-            className="group-hover:scale-105 duration-300 ease-in-out min-w-[220px] max-h-[320px] object-cover"
+            className={`group-hover:scale-105 duration-300 ease-in-out ${
+              size ? "w-52  h-52" : "min-w-[220px] max-h-[320px]"
+            } object-cover`}
           />
         </div>
         <div className="flex flex-col gap-2 w-full">
           <h3 className="text-lg font-semibold text-white">{product.name}</h3>
-          <span className="capitalize text-gray-400">
-            Category: {product.category}
-          </span>
-          <span className="text-gray-400">
-            Description:
-            <div
-              onClick={handleToggleTruncateText}
-              className="text-sm text-gray-200 cursor-pointer">
-              {isTextTruncated ? (
-                <>
-                  {truncateText(product.description, 100)}
-                  <span className="text-accent">read more</span>
-                </>
-              ) : (
-                product.description
-              )}
+          {!size && (
+            <span className="capitalize text-gray-400">
+              Category: {product.category}
+            </span>
+          )}
+          {size ? (
+            ""
+          ) : (
+            <div className="text-gray-400">
+              Description:
+              <div
+                onClick={handleToggleTruncateText}
+                className="text-sm text-gray-200 cursor-pointer">
+                {isTextTruncated ? (
+                  <>
+                    {truncateText(product.description, 100)}
+                    <span className="text-accent">read more</span>
+                  </>
+                ) : (
+                  product.description
+                )}
+              </div>
             </div>
-          </span>
+          )}
           <span className="text-xl font-bold  text-right">
             ${product.price.toFixed(2)}
           </span>

@@ -5,14 +5,20 @@ import { useParams } from "next/navigation";
 import { useProductsStore } from "@/stores/useProductsStore";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import ProductCard from "@/app/components/ProductCard";
+import NoProducts from "@/app/components/NoProducts";
 const Category = () => {
-  const { products, getProductByCategory } = useProductsStore();
+  const { products, getProductByCategory, loading, resetProducts } =
+    useProductsStore();
   const { id: categories } = useParams();
 
   useEffect(() => {
-    getProductByCategory(categories);
+    const getProducts = async () => {
+      resetProducts();
+      await getProductByCategory(categories);
+    };
+    getProducts();
   }, [categories]);
-  if (products.length === 0) return <LoadingSpinner />;
+  if (loading === 0) return <LoadingSpinner />;
   // Animations
   const containerVariants = {
     hidden: {
@@ -36,12 +42,25 @@ const Category = () => {
           {categories}
         </h1>
       </motion.div>
-      <div className="w-full md:w-[90%] mx-auto flex flex-row gap-4 flex-wrap justify-center">
-        {products.length > 0 &&
-          products.map((product, index) => (
-            <ProductCard key={product._id} product={product} index={index} />
-          ))}
-      </div>
+      {products.length === 0 ? (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.5,
+            delay: 0.4,
+            ease: "easeInOut",
+          }}>
+          <NoProducts />
+        </motion.div>
+      ) : (
+        <div className="w-full md:w-[90%] mx-auto flex flex-row gap-4 flex-wrap justify-center">
+          {products.length > 0 &&
+            products.map((product, index) => (
+              <ProductCard key={product._id} product={product} index={index} />
+            ))}
+        </div>
+      )}
     </div>
   );
 };

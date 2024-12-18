@@ -83,4 +83,7 @@ export const useProductsStore = create((set, get) => ({
       toast.error(error.response?.data?.message || "ERR_NETWORK");
     }
   },
+  resetProducts: () => {
+    set({ products: [] });
+  },
 }));
