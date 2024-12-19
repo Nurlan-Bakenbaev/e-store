@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@mui/material";
 import Image from "next/image";
-import { useEffect } from "react";
 
 const RecommendedProducts = ({ product, addToCart }) => {
   const { name, description, price, image } = product;

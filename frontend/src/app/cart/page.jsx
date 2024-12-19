@@ -22,7 +22,6 @@ const Cart = () => {
     recomendations,
     fetchRecomendation,
   } = useCartStore();
-  console.log(recomendations);
   useEffect(() => {
     getCartItems();
     fetchRecomendation();

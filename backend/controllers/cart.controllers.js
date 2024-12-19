@@ -59,7 +59,6 @@ export const updateQuantity = async (req, res) => {
         return res.status(200).json({ success: true });
       }
       await user.save();
-      console.log(user);
       return res.status(200).json({ success: true, user });
     }
   } catch (error) {

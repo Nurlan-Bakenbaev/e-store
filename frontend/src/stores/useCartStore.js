@@ -46,6 +46,7 @@ export const useCartStore = create((set, get) => ({
   addToCart: async (product) => {
     try {
       await axios.post("/cart/add", { productId: product._id });
+
       set((prevState) => {
         const existingItem = prevState.cart.find(
           (item) => item._id === product._id
@@ -68,10 +69,10 @@ export const useCartStore = create((set, get) => ({
   deleteFromCart: async (product) => {
     try {
       set({ isLoadingId: product._id });
-      await axios.delete(`/cart/delete`, { data: { productId: product._id } });
       set((prevState) => ({
         cart: prevState.cart.filter((item) => item._id !== product.id),
       }));
+      await axios.delete(`/cart/delete`, { data: { productId: product._id } });
       set({ isLoadingId: null });
       get().calculateTotals();
       get().getCartItems();
@@ -81,7 +82,6 @@ export const useCartStore = create((set, get) => ({
   },
   updateQuantity: async (product) => {
     try {
-      await axios.put(`/cart/update/${product._id}`);
       set((prevState) => ({
         cart: prevState.cart.map((item) =>
           item._id === product._id
@@ -89,6 +89,8 @@ export const useCartStore = create((set, get) => ({
             : item
         ),
       }));
+      await axios.put(`/cart/update/${product._id}`);
+
       get().calculateTotals();
       get().getCartItems();
     } catch (error) {}
