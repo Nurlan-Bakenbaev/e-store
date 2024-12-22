@@ -20,6 +20,7 @@ const PurchaseSuccess = () => {
   const { clearCart } = useCartStore();
   const [error, setError] = useState(null);
   const [order, setOrder] = useState({});
+  const { deleteCartOnPurchase } = useCartStore();
 
   useEffect(() => {
     const handleCheckoutSuccess = async (session_id) => {
@@ -29,8 +30,9 @@ const PurchaseSuccess = () => {
           sessionId: session_id,
         });
         setOrder(res.data.newOrder);
-        await clearCart();
         toast.success("Payment processed successfully!", { autoClose: 4000 });
+        await deleteCartOnPurchase();
+
       } catch (error) {
         setError(error.response?.data?.message || "Payment failed");
         toast.error(error.response?.data?.message || "Payment failed");
@@ -38,7 +40,6 @@ const PurchaseSuccess = () => {
         setIsProcessing(false);
       }
     };
-
     const sessionId = new URLSearchParams(window.location.search).get(
       "session_id"
     );
@@ -47,11 +48,7 @@ const PurchaseSuccess = () => {
     } else {
       setError("No sessionId found");
     }
-  }, [clearCart]);
-
-  useEffect(() => {
-    console.log("Updated order:", order);
-  }, [order]);
+  }, [clearCart, order]);
 
   if (isProcessing) return <LoadingSpinner />;
   if (error) return <div className="text-red-500 text-center">{error}</div>;
@@ -65,7 +62,7 @@ const PurchaseSuccess = () => {
       <section className="py-8 md:py-16">
         <div className="mx-auto max-w-2xl px-4 2xl:px-0">
           <h2 className="text-2xl text-center sm:text-2xl mb-2">
-          Thank you! Your purchase is successful.
+            Thank you! Your purchase is successful.
           </h2>
           <p className="text-slate-300 mb-6 md:mb-8">
             Your order number:
@@ -90,9 +87,7 @@ const PurchaseSuccess = () => {
                 <CreditCard className="w-4 h-4 mr-2" />
                 Payment Method
               </dt>
-              <dd className="font-medium text-white sm:text-end">
-                Card
-              </dd>
+              <dd className="font-medium text-white sm:text-end">Card</dd>
             </dl>
             <dl className="sm:flex items-center justify-between gap-4">
               <dt className="font-normal mb-1 sm:mb-0 text-gray-400 flex items-center">
@@ -114,9 +109,11 @@ const PurchaseSuccess = () => {
               </dd>
             </dl>
             <dl className="sm:flex items-center justify-between gap-4">
-              <dt className="font-normal mb-1 sm:mb-0 text-gray-400">User Id</dt>
+              <dt className="font-normal mb-1 sm:mb-0 text-gray-400">
+                User Id
+              </dt>
               <dd className="font-medium text-white sm:text-end">
-                 {order.user || "N/A"}
+                {order.user || "N/A"}
               </dd>
             </dl>
             <div className="flex items-center justify-center mt-4">

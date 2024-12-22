@@ -87,3 +87,20 @@ export const removeAllFromCart = async (req, res) => {
     });
   }
 };
+
+export const deleteCartItems = async (req, res) => {
+  try {
+    if (!req.user?.userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+    const result = await User.updateOne(
+      { _id: req.user.userId },
+      { $set: { cartItems: [] } }
+    );
+    res.status(200).json({ message: "Cart items deleted successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};

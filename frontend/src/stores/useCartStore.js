@@ -108,6 +108,15 @@ export const useCartStore = create((set, get) => ({
     }
     set({ subtotal, total });
   },
+  deleteCartOnPurchase: async () => {
+    try {
+      await axios.delete("/cart/on-success/delete");
+      toast.success("Cart cleared");
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error);
+    }
+  },
   fetchRecomendation: async () => {
     try {
       const res = await axios.get("/products/get/recommendations");
