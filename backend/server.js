@@ -9,9 +9,11 @@ import { cartRoutes } from "./routes/cart.routes.js";
 import { couponsRoutes } from "./routes/coupons.router.js";
 import { paymentRoutes } from "./routes/payment.routes.js";
 import { analiticsRoutes } from "./routes/analitics.routes.js";
+import path from "path";
 dotenv.config();
 
 const app = express();
+const __dirname = path.resolve();
 app.use(cookieParser());
 const corsOptions = {
   origin: "http://localhost:3000",
@@ -30,6 +32,9 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/coupons", couponsRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/analytics", analiticsRoutes);
+if(process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
+}
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

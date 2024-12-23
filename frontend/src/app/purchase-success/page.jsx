@@ -1,52 +1,48 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ConfettiComponent from "../components/Confetti";
-import {
-  MapPin,
-  Phone,
-  CreditCard,
-  CalendarDays,
-  DollarSign,
-  Shirt,
-  CircleCheckBig,
-} from "lucide-react";
+import { CreditCard, CalendarDays, DollarSign, Shirt } from "lucide-react";
 import Link from "next/link";
 import { useCartStore } from "@/stores/useCartStore";
 import axios from "@/lib/axios";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../components/LoadingSpinner";
-
 const PurchaseSuccess = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const { clearCart } = useCartStore();
   const [error, setError] = useState(null);
   const [order, setOrder] = useState({});
   const { deleteCartOnPurchase } = useCartStore();
-  useEffect(() => {
-    const handleCheckoutSuccess = async (session_id) => {
-      try {
-        setIsProcessing(true);
-        const res = await axios.post("/payments/create-success", {
-          sessionId: session_id,
-        });
-        setOrder(res.data.newOrder);
-        toast.success("Payment processed successfully!", { autoClose: 4000 });
-        await deleteCartOnPurchase();
-      } catch (error) {
-        setError(error.response?.data?.message || "Payment failed");
-        toast.error(error.response?.data?.message || "Payment failed");
-      } finally {
-        setIsProcessing(false);
-      }
-    };
 
-    const sessionId = new URLSearchParams(window.location.search).get(
-      "session_id"
-    );
-    if (sessionId) {
-      handleCheckoutSuccess(sessionId);
-    } else {
-      setError("No sessionId found");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const sessionId = new URLSearchParams(window.location.search).get(
+        "session_id"
+      );
+      if (sessionId) {
+        const handleCheckoutSuccess = async (session_id) => {
+          try {
+            setIsProcessing(true);
+            const res = await axios.post("/payments/create-success", {
+              sessionId: session_id,
+            });
+            setOrder(res.data.newOrder);
+            toast.success("Payment processed successfully!", {
+              autoClose: 4000,
+            });
+            await deleteCartOnPurchase();
+          } catch (error) {
+            setError(error.response?.data?.message || "Payment failed");
+            toast.error(error.response?.data?.message || "Payment failed");
+          } finally {
+            setIsProcessing(false);
+          }
+        };
+
+        handleCheckoutSuccess(sessionId);
+      } else {
+        setError("No sessionId found");
+      }
     }
   }, [clearCart, deleteCartOnPurchase]);
 

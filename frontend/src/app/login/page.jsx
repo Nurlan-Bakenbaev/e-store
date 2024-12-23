@@ -35,7 +35,7 @@ const Login = () => {
   const { user } = useUserStore();
   useEffect(() => {
     if (user) router.push("/");
-  }, [user]);
+  }, [user,router]);
 
   // animation
   const fadeInUp = {
@@ -111,7 +111,7 @@ const Login = () => {
             {loading ? "Loading..." : "Login"}
           </button>
           <span className="text-sm text-center py-4">
-            Don't have an account?
+            Do not have an account?
             <Link href="/signup" className=" text-blue-500 font-bold ml-2">
               Sign Up
             </Link>

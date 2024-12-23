@@ -25,7 +25,7 @@ const Cart = () => {
   useEffect(() => {
     getCartItems();
     fetchRecomendation();
-  }, [cart.quantity, getCartItems]);
+  }, [cart.quantity, getCartItems,fetchRecomendation]);
   const handleIncrementQuantity = (item) => {
     addToCart(item);
   };

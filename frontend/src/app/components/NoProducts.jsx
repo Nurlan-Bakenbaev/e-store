@@ -10,7 +10,7 @@ const NoProducts = () => {
           <FileSearch size={60} />
         </div>
         <div>
-          <h2 className="text-center text-lg pb-1">There's no product here</h2>
+          <h2 className="text-center text-lg pb-1">There is no product here</h2>
           <p className="text-center text-gray-400 pb-4">
             Try changing categories
             <br />

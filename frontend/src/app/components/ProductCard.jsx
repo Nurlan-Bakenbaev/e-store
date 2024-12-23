@@ -59,7 +59,7 @@ const ProductCard = ({ product, index, size }) => {
       );
     }
     getCartItems();
-  }, [user?.cartItems, product?._id]);
+  }, [user?.cartItems, product?._id,getCartItems,user]);
   return (
     <>
       <motion.div

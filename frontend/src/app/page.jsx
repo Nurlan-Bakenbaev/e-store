@@ -23,7 +23,7 @@ const Home = () => {
       }
     }, 5000);
     return () => clearTimeout(timeout);
-  }, [checkAuth, user]);
+  }, [checkAuth, user,isOpen]);
   const closeModal = () => {
     setIsOpen(false);
   };

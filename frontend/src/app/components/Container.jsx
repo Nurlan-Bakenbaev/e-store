@@ -13,9 +13,10 @@ const Container = ({ children }) => {
   const router = useRouter();
   // Zustand stores
   const { checkingAuth, loading, checkAuth, user } = useUserStore();
+
   useEffect(() => {
     checkAuth();
-  }, [checkAuth, !user]);
+  }, [checkAuth]);
 
   // pathname check for auth pages
   const path = usePathname();

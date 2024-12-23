@@ -17,7 +17,7 @@ const Category = () => {
       await getProductByCategory(categories);
     };
     getProducts();
-  }, [categories]);
+  }, [categories, getProductByCategory, resetProducts]);
   if (loading === 0) return <LoadingSpinner />;
   // Animations
   const containerVariants = {

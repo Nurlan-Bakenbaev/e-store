@@ -6,6 +6,7 @@ import { Heart, ShoppingCart, LogOut, LogIn, Gauge } from "lucide-react";
 import { Button } from "@mui/material";
 import { useUserStore } from "@/stores/useUserStore";
 import { useCartStore } from "@/stores/useCartStore";
+import Image from "next/image";
 const Navbar = () => {
   const path = usePathname();
   const { user, logout } = useUserStore();
@@ -18,7 +19,13 @@ const Navbar = () => {
       <div className=" flex justify-between items-center w-full md:w-[80%] mx-auto ">
         <div className=" flex items-center text-2xl">
           <Link href={"/"}>
-            <img src="/logotip.png" alt="logotip" className="w-12 h-12" />
+            <Image
+              width={50}
+              height={50}
+              src="/logotip.png"
+              alt="logotip"
+              className="w-12 h-12"
+            />
           </Link>
           <Link href="/" className="hidden md:flex items-center no-hover-link">
             <span className="text-4xl font-bold text-accent">Shop</span>

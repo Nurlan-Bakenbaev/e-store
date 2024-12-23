@@ -4,25 +4,6 @@ import Confetti from "react-confetti";
 
 const ConfettiComponent = ({ trigger }) => {
   const [showConfetti, setShowConfetti] = useState(false);
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   useEffect(() => {
     if (trigger) {
@@ -37,10 +18,9 @@ const ConfettiComponent = ({ trigger }) => {
     <>
       {showConfetti && (
         <Confetti
-          width={windowSize.width}
-          height={windowSize.height}
+          width={window.innerWidth}
+          height={window.innerHeight}
           gravity={0.1}
-          
         />
       )}
     </>
