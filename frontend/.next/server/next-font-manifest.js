@@ -1,1 +1,0 @@
-self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/Users/bakenbaevFamily/Desktop/My Job/e-store/frontend/src/app/layout":["static/media/eafabf029ad39a43-s.p.woff2","static/media/9e82d62334b205f4-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}';
