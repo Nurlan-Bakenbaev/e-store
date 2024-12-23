@@ -32,8 +32,11 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/coupons", couponsRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/analytics", analiticsRoutes);
-if(process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/build")));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/next")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "next", "index.html"));
+  });
 }
 
 const PORT = process.env.PORT;
