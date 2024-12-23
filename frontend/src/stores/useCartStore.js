@@ -12,8 +12,10 @@ export const useCartStore = create((set, get) => ({
   getMyCoupon: async () => {
     try {
       const response = await axios.get("/coupons");
-      set({ coupon: response.data });
-    } catch (error) {}
+      set({ coupon: response.data.coupon });
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to get coupon");
+    }
   },
   applyCoupon: async (code) => {
     try {

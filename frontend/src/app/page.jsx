@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { containerVariants, itemVariants } from "@/lib/motionAnimations";
 import { useUserStore } from "@/stores/useUserStore";
 import SignUpModel from "./components/SignUpModel";
+import FeaturedProducts from "./components/FeaturedProducts";
 
 const Home = () => {
   const { checkAuth, user } = useUserStore();
@@ -52,6 +53,12 @@ const Home = () => {
           </motion.div>
         ))}
       </motion.div>
+      <div>
+        <h2 className="flex flex-col text-xl md:text-2xl text-accent  my-5 text-center">
+          Featured Products
+        </h2>
+        <FeaturedProducts />
+      </div>
     </div>
   );
 };

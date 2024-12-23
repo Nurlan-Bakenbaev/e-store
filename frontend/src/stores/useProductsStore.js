@@ -78,7 +78,18 @@ export const useProductsStore = create((set, get) => ({
       set({ products: res.data.products });
       return res.data.products;
     } catch (error) {
-      console.log(error);
+      set({ loading: false });
+      toast.error(error.response?.data?.message || "ERR_NETWORK");
+    }
+  },
+  getFeaturedProducts: async () => {
+    try {
+      set({ loading: true });
+      const res = await axios.get(`/products/featured`);
+      console.log(res.data);
+      set({ products: res.data });
+      set({ loading: false });
+    } catch (error) {
       set({ loading: false });
       toast.error(error.response?.data?.message || "ERR_NETWORK");
     }

@@ -66,7 +66,7 @@ const ProductCard = ({ product, index, size }) => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className={`bg-slate-800  hover:bg-slate-700 py-4 rounded-md 
+        className={`bg-slate-800 overflow-hidden  hover:bg-slate-700 py-4 rounded-md 
         shadow-md  ${
           size ? "max-w-xs" : " max-w-md min-w-[120px]"
         } flex flex-col 

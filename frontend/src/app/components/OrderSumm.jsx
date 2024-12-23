@@ -11,13 +11,7 @@ const stripePromise = loadStripe(
 );
 
 const OrderSumm = () => {
-  const { cart, coupon, isCouponApplied, subtotal, total } = useCartStore();
-  const handleActivateCoupon = () => {
-    console.log("remove coupon");
-  };
-  const handleRemoveCoupon = () => {
-    console.log("remove coupon");
-  };
+  const { cart, coupon, subtotal, total } = useCartStore();
   const handleStripePayment = async () => {
     try {
       const stripe = await stripePromise;
@@ -28,24 +22,19 @@ const OrderSumm = () => {
       if (!Array.isArray(cart) || cart.length === 0) {
         throw new Error("Your cart is empty. Please add products to proceed.");
       }
-
       const res = await axios.post("/payments/create-checkout-session", {
         products: cart,
         couponCode: coupon ? coupon?.code : null,
       });
-
       const session = res.data;
-
       if (!session.id) {
         throw new Error(
           "Failed to create a checkout session. Please try again."
         );
       }
-
       const { error } = await stripe.redirectToCheckout({
         sessionId: session.id,
       });
-
       if (error) {
         alert(
           "There was an issue redirecting to the payment page. Please try again."
@@ -55,10 +44,9 @@ const OrderSumm = () => {
       alert(error.message);
     }
   };
-
   return (
     <>
-      <GiftCouponCard />
+      {/*  <GiftCouponCard />*/}
       <div className="space-y-4 rounded-lg  bg-slate-800 p-4 shadow-sm  sm:p-6">
         <p className="text-xl font-semibold ">Order summary</p>
         <div className="space-y-4">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,6 +10,8 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import axios from "@/lib/axios";
+import LoadingSpinner from "./LoadingSpinner";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -26,15 +28,9 @@ const Analytics = () => {
     totalSales: 0,
     totalRevenue: 0,
   });
-  const [dailySalesData, setDailySalesData] = useState([
-    { date: "2024-12-05", sales: 10, revenue: 200 },
-    { date: "2024-12-06", sales: 15, revenue: 300 },
-    { date: "2024-12-07", sales: 20, revenue: 400 },
-    { date: "2024-12-08", sales: 25, revenue: 500 },
-    { date: "2024-12-09", sales: 30, revenue: 600 },
-    { date: "2024-12-10", sales: 35, revenue: 700 },
-    { date: "2024-12-11", sales: 40, revenue: 800 },
-  ]);
+  const [dailySalesData, setDailySalesData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const chartData = {
     labels: dailySalesData.map((data) => data.date),
     datasets: [
@@ -67,6 +63,28 @@ const Analytics = () => {
       },
     },
   };
+
+  useEffect(() => {
+    const fetchAnalyticsData = async () => {
+      try {
+        const response = await axios.get("/analytics");
+        setAnalyticsData(response.data.analyticsData);
+        setDailySalesData(response.data.dailySalesData);
+      } catch (error) {
+        console.error(error, "error fetching analytics data");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAnalyticsData();
+  }, []);
+  if (loading) {
+    return (
+      <div>
+        <LoadingSpinner />
+      </div>
+    );
+  }
   return (
     <div className=" max-w-4xl mx-auto space-y-8">
       <div

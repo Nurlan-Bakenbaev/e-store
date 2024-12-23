@@ -52,7 +52,7 @@ const Login = () => {
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{
-            duration: 0.5,
+            duration: 0.4,
             delay: 0.2,
             ease: "easeInOut",
           }}>
@@ -62,7 +62,7 @@ const Login = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.4, delay: 0.5, ease: "easeOut" }}
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <AtSign />
           <input
@@ -85,7 +85,7 @@ const Login = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.4, delay: 0.8, ease: "easeOut" }}
           className="flex items-center w-full max-w-md p-2 rounded-md">
           <Lock />
           <input
@@ -104,7 +104,7 @@ const Login = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.5, delay: 1.2, ease: "easeOut" }}>
+          transition={{ duration: 0.4, delay: 1.2, ease: "easeOut" }}>
           <button
             type="submit"
             className="w-full p-4 my-5 max-w-md py-2 bg-blue-600 rounded-md hover:bg-blue-800 transition">
@@ -121,7 +121,7 @@ const Login = () => {
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
         className="hidden md:flex flex-1  relative">
         <div className="absolute inset-0 bg-purple-900 opacity-40 z-10" />
 

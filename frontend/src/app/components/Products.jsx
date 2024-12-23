@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useProductsStore } from "@/stores/useProductsStore";
 import { ProductRow } from "./ProductRow";
 import ProductSkelet from "./Skeleton/ProductSkelet";
-
 const Products = () => {
   const {
     getAllProducts,

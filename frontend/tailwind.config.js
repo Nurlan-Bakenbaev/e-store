@@ -39,6 +39,7 @@ module.exports = {
         DEFAULT: "300ms",
       },
       animation: {
+        infinite_scroll: 'infinite-scroll 25s linear infinite',
         fadeIn: "fadeIn 0.5s ease-in-out",
         bounce: "bounce 1s infinite",
         "spin-slow": "spin 2s linear infinite",

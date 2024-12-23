@@ -29,7 +29,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/coupons", couponsRoutes);
 app.use("/api/payments", paymentRoutes);
-app.use("/api/analitics", analiticsRoutes);
+app.use("/api/analytics", analiticsRoutes);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
