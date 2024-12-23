@@ -28,7 +28,7 @@ const ConfettiComponent = ({ trigger }) => {
     if (trigger) {
       setShowConfetti(true);
 
-      const timeout = setTimeout(() => setShowConfetti(false), 5000);
+      const timeout = setTimeout(() => setShowConfetti(false), 8000);
       return () => clearTimeout(timeout);
     }
   }, [trigger]);
@@ -36,7 +36,12 @@ const ConfettiComponent = ({ trigger }) => {
   return (
     <>
       {showConfetti && (
-        <Confetti width={windowSize.width} height={windowSize.height} />
+        <Confetti
+          width={windowSize.width}
+          height={windowSize.height}
+          gravity={0.1}
+          
+        />
       )}
     </>
   );

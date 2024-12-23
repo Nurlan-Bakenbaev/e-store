@@ -8,6 +8,7 @@ import {
   CalendarDays,
   DollarSign,
   Shirt,
+  CircleCheckBig,
 } from "lucide-react";
 import Link from "next/link";
 import { useCartStore } from "@/stores/useCartStore";
@@ -21,7 +22,6 @@ const PurchaseSuccess = () => {
   const [error, setError] = useState(null);
   const [order, setOrder] = useState({});
   const { deleteCartOnPurchase } = useCartStore();
-
   useEffect(() => {
     const handleCheckoutSuccess = async (session_id) => {
       try {
@@ -32,7 +32,6 @@ const PurchaseSuccess = () => {
         setOrder(res.data.newOrder);
         toast.success("Payment processed successfully!", { autoClose: 4000 });
         await deleteCartOnPurchase();
-
       } catch (error) {
         setError(error.response?.data?.message || "Payment failed");
         toast.error(error.response?.data?.message || "Payment failed");
@@ -40,6 +39,7 @@ const PurchaseSuccess = () => {
         setIsProcessing(false);
       }
     };
+
     const sessionId = new URLSearchParams(window.location.search).get(
       "session_id"
     );
@@ -48,17 +48,17 @@ const PurchaseSuccess = () => {
     } else {
       setError("No sessionId found");
     }
-  }, [clearCart, order]);
+  }, [clearCart, deleteCartOnPurchase]);
 
   if (isProcessing) return <LoadingSpinner />;
-  if (error) return <div className="text-red-500 text-center">{error}</div>;
+  if (error)
+    return <div className="text-red-500 text-2xl text-center">{error}</div>;
 
   return (
     <>
       <div>
         <ConfettiComponent trigger />
       </div>
-
       <section className="py-8 md:py-16">
         <div className="mx-auto max-w-2xl px-4 2xl:px-0">
           <h2 className="text-2xl text-center sm:text-2xl mb-2">
@@ -131,5 +131,4 @@ const PurchaseSuccess = () => {
     </>
   );
 };
-
 export default PurchaseSuccess;

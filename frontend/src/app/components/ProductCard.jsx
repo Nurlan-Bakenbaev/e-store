@@ -66,24 +66,26 @@ const ProductCard = ({ product, index, size }) => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className={`bg-slate-800 hover:bg-slate-700 p-4 rounded-md 
-        shadow-md w-full ${
-          size ? "max-w-md" : " max-w-lg min-w-[280px]"
+        className={`bg-slate-800  hover:bg-slate-700 py-4 rounded-md 
+        shadow-md  ${
+          size ? "max-w-xs" : " max-w-md min-w-[120px]"
         } flex flex-col 
         sm:flex-${size ? "col" : "row"} items-center gap-4 group`}>
         <div onClick={handleImageClick} className="cursor-pointer">
           <Image
-            height={280}
-            width={280}
+            height={180}
+            width={320}
             src={product.image}
             alt={"photo of " + product.name}
             className={`group-hover:scale-105 duration-300 ease-in-out ${
-              size ? "w-52  h-52" : "min-w-[220px] max-h-[320px]"
+              size ? "w-[180px] h-[180px]" : "min-w-[180px] max-h-[320px]"
             } object-cover`}
           />
         </div>
-        <div className="flex flex-col gap-2 w-full">
-          <h3 className="text-lg font-semibold text-white">{product.name}</h3>
+        <div className="flex flex-col gap-2 p-2">
+          <h3 className={`text-${size ? "md" : "lg"} font-semibold text-white`}>
+            {product.name}
+          </h3>
           {!size && (
             <span className="capitalize text-gray-400">
               Category: {product.category}
@@ -108,9 +110,12 @@ const ProductCard = ({ product, index, size }) => {
               </div>
             </div>
           )}
-          <span className="text-xl font-bold  text-right">
-            ${product.price.toFixed(2)}
-          </span>
+          <div className="w-full h-[1px] bg-gray-500 my-2"></div>
+
+          <p className={`text-${size ? "sm" : "lg"} font-bold  text-right`}>
+            <span>Price:</span>
+            <span> ${product.price.toFixed(2)}</span>
+          </p>
           <div className="flex items-center justify-between text-sm text-gray-500">
             {product.isFeatured && (
               <div className="flex items-center gap-1 text-yellow-500">
@@ -125,7 +130,7 @@ const ProductCard = ({ product, index, size }) => {
               }}
               variant="contained"
               color="success"
-              className="flex items-center gap-2">
+              className={`flex items-center gap-2 text-${size ? "sm" : "md"} `}>
               <ShoppingCart size={18} />
               {isInCart ? "Added to cart" : "Add to cart"}
             </Button>
