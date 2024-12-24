@@ -79,7 +79,6 @@ export const useProductsStore = create((set, get) => ({
       return res.data.products;
     } catch (error) {
       set({ loading: false });
-      toast.error(error.response?.data?.message || "ERR_NETWORK");
     }
   },
   getFeaturedProducts: async () => {
