@@ -30,7 +30,7 @@ const ProductCard = ({ product, index, size }) => {
     }
     await addToCart(productId);
     toast.success("Product added to cart", {
-      autoClose: 4000,
+      autoClose: 3000,
     });
     getCartItems();
   };

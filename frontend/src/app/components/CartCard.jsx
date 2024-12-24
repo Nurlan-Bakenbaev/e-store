@@ -4,6 +4,7 @@ import Link from "next/link";
 import Spinner from "./Spinner";
 import { useEffect } from "react";
 import { useCartStore } from "@/stores/useCartStore";
+import { useUserStore } from "@/stores/useUserStore";
 
 const CartCard = ({
   cart,

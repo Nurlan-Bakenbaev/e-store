@@ -6,18 +6,21 @@ import { useProductsStore } from "@/stores/useProductsStore";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import ProductCard from "@/app/components/ProductCard";
 import NoProducts from "@/app/components/NoProducts";
+import { useCartStore } from "@/stores/useCartStore";
 const Category = () => {
   const { products, getProductByCategory, loading, resetProducts } =
     useProductsStore();
   const { id: categories } = useParams();
-
+  const { getCartItems } = useCartStore();
   useEffect(() => {
     const getProducts = async () => {
       resetProducts();
       await getProductByCategory(categories);
+
+      getCartItems();
     };
     getProducts();
-  }, [categories, getProductByCategory, resetProducts]);
+  }, [categories, getProductByCategory, resetProducts, getCartItems]);
   if (loading === 0) return <LoadingSpinner />;
   // Animations
   const containerVariants = {
