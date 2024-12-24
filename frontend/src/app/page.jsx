@@ -18,12 +18,12 @@ const Home = () => {
     }
     if (user) return;
     const timeout = setTimeout(() => {
-      if (!user || !isOpen) {
+      if (!user) {
         setIsOpen(true);
       }
-    }, 5000);
+    }, 10000);
     return () => clearTimeout(timeout);
-  }, [checkAuth, user,isOpen]);
+  }, [checkAuth, user]);
   const closeModal = () => {
     setIsOpen(false);
   };
