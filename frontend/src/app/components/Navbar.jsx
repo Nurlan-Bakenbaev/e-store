@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { use } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Heart, ShoppingCart, LogOut, LogIn, Gauge } from "lucide-react";
 import { Button } from "@mui/material";
 import { useUserStore } from "@/stores/useUserStore";
@@ -9,7 +9,11 @@ import { useCartStore } from "@/stores/useCartStore";
 import Image from "next/image";
 const Navbar = () => {
   const path = usePathname();
+  const router = useRouter();
   const { user, logout } = useUserStore();
+  const handleLogout = () => {
+    logout();
+  };
   const { cart } = useCartStore();
   if (path === "/login" || path === "/signup") return null;
   return (
@@ -65,7 +69,7 @@ const Navbar = () => {
                   <Gauge /> <span className="mx-1">Admin</span>
                 </Link>
               )}
-              <Button onClick={logout} color="error" variant="outlined">
+              <Button onClick={handleLogout} color="error" variant="outlined">
                 <span className="flex  duration-200  ease-out hover:scale-90">
                   <LogOut />
                 </span>

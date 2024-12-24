@@ -84,6 +84,8 @@ export const logout = async (req, res) => {
     if (!refreshToken) {
       res.status(401).json({ message: "Unauthorized" });
     }
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
     if (refreshToken) {
       const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
       await redis.del(`refreshToken:${decoded.userId}`);

@@ -35,7 +35,7 @@ const Login = () => {
   const { user } = useUserStore();
   useEffect(() => {
     if (user) router.push("/");
-  }, [user,router]);
+  }, [user, router]);
 
   // animation
   const fadeInUp = {
