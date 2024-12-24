@@ -23,6 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "5mb" }));
 
 //ROUTES
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Server is running" });
+});
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
