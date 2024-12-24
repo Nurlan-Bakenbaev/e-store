@@ -90,8 +90,16 @@ export const logout = async (req, res) => {
       const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
       await redis.del(`refreshToken:${decoded.userId}`);
     }
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
+    res.clearCookie("accessToken", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    });
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    });
     return res.json({ message: "User logged out successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
