@@ -13,7 +13,7 @@ dotenv.config();
 const app = express();
 app.use(cookieParser());
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://e-store2024.onrender.com"],
+  origin: ["http://localhost:3000", "https://e-store2024.onrender.com","https://e-store-mu-three.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization", "withCredentials"],
