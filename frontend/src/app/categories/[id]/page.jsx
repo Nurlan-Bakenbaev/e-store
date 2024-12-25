@@ -7,6 +7,7 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 import ProductCard from "@/app/components/ProductCard";
 import NoProducts from "@/app/components/NoProducts";
 import { useCartStore } from "@/stores/useCartStore";
+import { useUserStore } from "@/stores/useUserStore";
 const Category = () => {
   const { products, getProductByCategory, loading, resetProducts } =
     useProductsStore();
@@ -62,7 +63,11 @@ const Category = () => {
         flex-row gap-2 flex-wrap justify-center">
           {products.length > 0 &&
             products.map((product, index) => (
-              <ProductCard key={product._id} product={product} index={index} />
+              <ProductCard
+                key={product._id}
+                product={product}
+                index={index}
+              />
             ))}
         </div>
       )}

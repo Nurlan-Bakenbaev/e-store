@@ -82,7 +82,7 @@ const CreateProduct = () => {
             cols="50"
             value={formData.description}
             onChange={handleInputChange}
-            className="w-full bg-transparent border p-2"
+            className="w-full text-sm  font-light bg-transparent border p-2"
             required
           />
           <span className="text-xs text-gray-500">

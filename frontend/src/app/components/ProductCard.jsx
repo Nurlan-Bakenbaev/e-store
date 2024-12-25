@@ -59,7 +59,7 @@ const ProductCard = ({ product, index, size }) => {
       );
     }
     getCartItems();
-  }, [user?.cartItems, product?._id,getCartItems,user]);
+  }, [user?.cartItems, product?._id, getCartItems, user]);
   return (
     <>
       <motion.div
@@ -77,13 +77,13 @@ const ProductCard = ({ product, index, size }) => {
             width={320}
             src={product.image}
             alt={"photo of " + product.name}
-            className={`group-hover:scale-105 duration-300 ease-in-out ${
+            className={`group-hover:scale-105 px-2 duration-300 ease-in-out ${
               size ? "w-[180px] h-[180px]" : "min-w-[180px] max-h-[320px]"
-            } object-cover`}
+            } object-cover object-top`}
           />
         </div>
-        <div className="flex flex-col gap-2 p-2">
-          <h3 className={`text-${size ? "md" : "lg"} font-semibold text-white`}>
+        <div className={`flex flex-col  ${size ? "gap-0 p-1" : "gap-4 p-2"}`}>
+          <h3 className={`text-${size ? "sm" : "lg"} font-semibold text-white`}>
             {product.name}
           </h3>
           {!size && (
@@ -125,6 +125,7 @@ const ProductCard = ({ product, index, size }) => {
           </div>
           <div className="flex items-center justify-between mt-auto">
             <Button
+              disabled={user?.role === "admin"}
               onClick={() => {
                 handleAddToCart(product);
               }}

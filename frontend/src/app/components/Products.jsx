@@ -49,7 +49,7 @@ const Products = () => {
               <th>Description</th>
               <th>Category</th>
               <th>Price</th>
-              <th>Actions</th>
+              <th>Featured</th>
             </tr>
           </thead>
           <tbody>

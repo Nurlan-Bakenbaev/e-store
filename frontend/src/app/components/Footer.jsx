@@ -3,6 +3,18 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className=" bg-slate-800 pt-12 pb-4 px-5">
+      <div className="border-t text-center pt-4 mt-8">
+        <p className="text-[15px]">
+          All rights belong to their respective owners. This website was created
+          for educational purposes, using free resources. Images are taken from{" "}
+          <Link
+            href="https://www.freepik.com"
+            target="_blank"
+            className="underline text-blue-500 text-xl uppercase">
+            Freepik
+          </Link>
+        </p>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-screen-xl mx-auto">
         <div>
           <h4 className="text-accent font-semibold text-lg mb-6">
@@ -141,20 +153,6 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-      </div>
-
-      <div className="border-t text-center pt-4 mt-8">
-        <p className="text-[15px]">
-          All rights belong to their respective owners. This website was created
-          for educational purposes, using free resources. Images are taken from{" "}
-          <a
-            href="https://www.freepik.com"
-            target="_blank"
-            className="underline text-blue-500 text-xl uppercase">
-            Freepik
-          </a>
-          .
-        </p>
       </div>
     </footer>
   );

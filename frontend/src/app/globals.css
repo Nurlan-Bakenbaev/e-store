@@ -76,5 +76,7 @@ label,
   flex-direction: row;
   align-items: center;
 }
-
-
+label {
+  margin-bottom: 8px;
+  color: rgb(197, 195, 195);
+}
