@@ -53,14 +53,16 @@ const Home = () => {
           </motion.div>
         ))}
       </motion.div>
-      <div className="mt-10 hidden md:block">
-        <h2 className="flex flex-col text-xl md:text-2xl text-accent  my-5 text-center">
-          Featured Products
-        </h2>
-        <div className="w-[80%]  mx-auto bg-slate-900  p-4 rounded-md">
-          <FeaturedProducts />
+      {user && (
+        <div className="mt-10 hidden md:block">
+          <h2 className="flex flex-col text-xl md:text-2xl text-accent  my-5 text-center">
+            Featured Products
+          </h2>
+          <div className="w-[80%]  mx-auto bg-slate-900  p-4 rounded-md">
+            <FeaturedProducts />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
