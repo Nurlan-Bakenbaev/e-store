@@ -25,15 +25,15 @@ const Cart = () => {
   useEffect(() => {
     getCartItems();
     fetchRecomendation();
-  }, [cart.quantity, getCartItems,fetchRecomendation]);
+  }, [cart.quantity, getCartItems, fetchRecomendation]);
   const handleIncrementQuantity = (item) => {
     addToCart(item);
   };
   const handleDecrementQuantity = (item) => {
     updateQuantity(item);
   };
-  const handleDeleteItem = async (item) => {
-    await deleteFromCart(item);
+  const handleDeleteItem =  (item) => {
+    deleteFromCart(item);
     getCartItems();
   };
   return (
@@ -65,7 +65,7 @@ const Cart = () => {
                     cart={item}
                     incrementItemQuantity={handleIncrementQuantity}
                     decrementItemQuantity={handleDecrementQuantity}
-                    deleteItemFromCart={handleDeleteItem}
+                    handleDeleteItem={handleDeleteItem}
                     isLoadingId={isLoadingId}
                   />
                 ))}

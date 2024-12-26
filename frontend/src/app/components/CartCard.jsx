@@ -2,24 +2,17 @@ import { Delete, Heart, Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Spinner from "./Spinner";
-import { useEffect } from "react";
 import { useCartStore } from "@/stores/useCartStore";
-import { useUserStore } from "@/stores/useUserStore";
 
 const CartCard = ({
   cart,
   decrementItemQuantity,
-  deleteItemFromCart,
+  handleDeleteItem,
   incrementItemQuantity,
   isLoadingId,
 }) => {
   const { getCartItems } = useCartStore();
-  useEffect(() => {
-    if (cart.quantity === 0) {
-      deleteItemFromCart(cart);
-    }
-    getCartItems();
-  }, [cart.quantity, deleteItemFromCart, getCartItems, cart]);
+
   return (
     <div className="relative rounded-lg p-4 mb-2 shadow-sm bg-slate-800 md:p-6">
       <div className="space-y-2 md:flex md:items-center md:justify-between gap-4">
@@ -50,6 +43,7 @@ const CartCard = ({
               type="text"
               className="w-10 border-0 bg-transparent text-center text-sm font-medium focus:outline-none focus:ring-0"
               value={cart.quantity}
+              min={1}
               readOnly
             />
             <button
@@ -65,7 +59,7 @@ const CartCard = ({
         </div>
       </div>
       <button
-        onClick={() => deleteItemFromCart(cart)}
+        onClick={() => handleDeleteItem(cart)}
         type="button"
         className="text-red-600  hover:text-red-700 absolute top-3 right-5">
         {isLoadingId && cart._id ? <Spinner /> : <Trash size={20} />}
