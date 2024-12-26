@@ -32,9 +32,8 @@ const Cart = () => {
   const handleDecrementQuantity = (item) => {
     updateQuantity(item);
   };
-  const handleDeleteItem =  (item) => {
-    deleteFromCart(item);
-    getCartItems();
+  const handleDeleteItem = (item) => {
+  deleteFromCart(item);
   };
   return (
     <div>

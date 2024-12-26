@@ -53,13 +53,13 @@ const ProductCard = ({ product, index, size }) => {
     setIsTextTruncated(!isTextTruncated);
   };
   useEffect(() => {
+    getCartItems();
     if (user) {
       setIsInCart(
         user?.cartItems.some((item) => item.product.toString() === product._id)
       );
     }
-    getCartItems();
-  }, [user?.cartItems, product?._id, getCartItems, user]);
+  }, [user?.cartItems, product?._id, getCartItems, user, setIsInCart]);
   return (
     <>
       <motion.div

@@ -11,8 +11,6 @@ const CartCard = ({
   incrementItemQuantity,
   isLoadingId,
 }) => {
-  const { getCartItems } = useCartStore();
-
   return (
     <div className="relative rounded-lg p-4 mb-2 shadow-sm bg-slate-800 md:p-6">
       <div className="space-y-2 md:flex md:items-center md:justify-between gap-4">

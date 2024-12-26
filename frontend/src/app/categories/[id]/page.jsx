@@ -17,7 +17,6 @@ const Category = () => {
     const getProducts = async () => {
       resetProducts();
       await getProductByCategory(categories);
-
       getCartItems();
     };
     getProducts();
